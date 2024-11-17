@@ -18,7 +18,13 @@ const recentPosts = sortedPosts.slice(0, 3);
   <ul>
     {
       recentPosts.map((post) => (
-        <BlogPost url={post.url} title={post.frontmatter.title} />
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          pubDate={post.frontmatter.pubDate}
+          description={post.frontmatter.description}
+          pubDate={post.frontmatter.pubDate}
+        />
       ))
     }
   </ul>

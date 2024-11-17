@@ -16,7 +16,12 @@ const sortedPosts = allPosts.sort(
   <ul>
     {
       sortedPosts.map((post) => (
-        <BlogPost url={post.url} title={post.frontmatter.title} />
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+          pubDate={post.frontmatter.pubDate}
+        />
       ))
     }
   </ul>
