@@ -36,15 +36,17 @@ const { frontmatter } = Astro.props;
   {frontmatter.author && <p>Written by: {frontmatter.author}</p>}
 
   <slot />
+
+  <h2>Tags:</h2>
   {
     frontmatter.tags && frontmatter.tags.length > 0 && (
-      <div class="tags">
+      <ul>
         {frontmatter.tags.map((tag) => (
-          <p class="tag">
+          <li>
             <a href={`/tags/${tag}`}>{tag}</a>
-          </p>
+          </li>
         ))}
-      </div>
+      </ul>
     )
   }
 </BaseLayout>
