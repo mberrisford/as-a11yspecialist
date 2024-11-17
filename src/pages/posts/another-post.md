@@ -5,7 +5,7 @@ pubDate: 2022-07-10
 description: "This is another post of my new Astro blog."
 author: "Astro Learner"
 image:
-  url: "/images/Designer.jpeg"
+  url: "https://docs.astro.build/assets/rose.webp"
   alt: ""
 tags: ["astro", "blogging", "learning in public", "featured"]
 ---
