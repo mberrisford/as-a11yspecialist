@@ -1,16 +1,18 @@
 ---
 import Social from "./Social.astro";
 ---
-<style>
-    footer {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
-  
+
 <footer>
-    <Social platform="bluesky" username="mberrisford" />
-    <Social platform="github" username="mberrisford" />
-    <Social platform="youtube" username="astrodotbuild" />
+  <Social
+    platform="LinkedIn"
+    link="https://www.linkedin.com/in/martin-berrisford-5a77aa8/"
+  />
+  <Social
+    platform="BlueSky"
+    link="https://bsky.app/profile/mberrisford.bsky.social"
+  />
+
+  <p>
+    &copy; {new Date().getFullYear()} Martin Berrisford. All rights reserved.
+  </p>
 </footer>
