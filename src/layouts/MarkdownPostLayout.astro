@@ -4,7 +4,6 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-  <p><a href="/blog/">Return to Blog Index page</a></p>
   {
     frontmatter.image && (
       <img
