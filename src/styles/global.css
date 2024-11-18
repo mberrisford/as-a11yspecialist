@@ -1,0 +1,13 @@
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --pico-primary-underline: var(--pico-primary);
+    --pico-primary-focus: var(--pico-primary);
+  }
+}
+
+@media only screen and (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --pico-primary-underline: var(--pico-primary);
+    --pico-primary-focus: var(--pico-primary);
+  }
+}

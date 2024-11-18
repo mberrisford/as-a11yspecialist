@@ -1,7 +1,9 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import "@picocss/pico/css/pico.orange.min.css";
 import "../styles/global.css";
+import SkipLink from "../components/SkipLink.astro";
 const { pageTitle } = Astro.props;
 ---
 
@@ -14,20 +16,27 @@ const { pageTitle } = Astro.props;
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
+    <meta name="description" content="Personal website of Martin Berrisford" />
+    <meta name="author" content="Martin Berrisford" />
+    <title>{pageTitle} - Martin Berrisford</title>
   </head>
   <body>
+    <SkipLink />
     <Header />
-    {
-      Astro.url.pathname.includes("/posts/") && (
-        <p>
-          <a href="javascript:history.back()">Return to Previous Page</a>
-        </p>
-      )
-    }
-    <h1>{pageTitle}</h1>
-    <slot />
+
+    <main id="main" class="container" tabindex="-1">
+      {
+        Astro.url.pathname.includes("/posts/") && (
+          <p>
+            <a href="javascript:history.back()">Go back</a>
+          </p>
+        )
+      }
+      <h1>{pageTitle}</h1>
+      <slot />
+    </main>
     <Footer />
+
     <script>
       // import "../scripts/menu.js";
     </script>

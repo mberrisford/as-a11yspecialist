@@ -2,9 +2,46 @@
 
 ---
 
-<div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/blog/">Blog</a>
-    <a href="/tags/">Tags</a>
-</div>
+<nav>
+  <ul role="presentation">
+    <li role="presentation">
+      <a href="/" class="contrast"
+        >Martin Berrisford
+        <span class="sr-only"> - Home page</span>
+      </a>
+    </li>
+  </ul>
+  <ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/tags/">Tags</a></li>
+  </ul>
+</nav>
+
+<style>
+  a[aria-current="page"] {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
+
+<script>
+  const currentPath = window.location.pathname;
+  const links = document.querySelectorAll("nav ul li a");
+  links.forEach((link) => {
+    if (link.getAttribute("href") === currentPath) {
+      link.setAttribute("aria-current", "page");
+    }
+  });
+</script>
