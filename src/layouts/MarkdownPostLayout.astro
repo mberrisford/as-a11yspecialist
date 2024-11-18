@@ -13,13 +13,13 @@ const { frontmatter } = Astro.props;
       />
     )
   }
-  {
+  <!-- {
     frontmatter.description && (
       <p>
         <em>{frontmatter.description}</em>
       </p>
     )
-  }
+  } -->
   <p>
     Posted on:
     <time datetime={new Date(frontmatter.pubDate).toISOString().split("T")[0]}>

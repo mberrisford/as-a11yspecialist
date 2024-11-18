@@ -2,12 +2,14 @@
 
 ---
 
-<nav>
+<nav aria-label="Site">
   <ul role="presentation">
     <li role="presentation">
-      <a href="/" class="contrast"
-        >Martin Berrisford
-        <span class="sr-only"> - Home page</span>
+      <a href="/" class="contrast">
+        <h4 role="presentation">
+          Martin Berrisford
+          <span class="sr-only"> - Home page</span>
+        </h4>
       </a>
     </li>
   </ul>
@@ -21,18 +23,11 @@
 <style>
   a[aria-current="page"] {
     font-weight: bold;
-    text-decoration: underline;
+    /* text-decoration: underline; */
   }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+
+  h4 {
+    margin: 0;
   }
 </style>
 

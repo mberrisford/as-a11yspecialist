@@ -7,7 +7,7 @@ author: "Astro Learner"
 image:
   url: "https://docs.astro.build/assets/rose.webp"
   alt: ""
-tags: ["astro", "blogging", "learning in public", "featured"]
+tags: ["testing"]
 ---
 
 Welcome to my _new blog_ about learning Astro! Here, I will share my learning journey as I build a new website.
