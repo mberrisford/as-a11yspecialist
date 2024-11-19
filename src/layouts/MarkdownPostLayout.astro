@@ -4,49 +4,50 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-  {
-    frontmatter.image && (
-      <img
-        src={frontmatter.image.url}
-        width="600"
-        alt={frontmatter.image.alt}
-      />
-    )
-  }
-  <!-- {
-    frontmatter.description && (
-      <p>
-        <em>{frontmatter.description}</em>
-      </p>
-    )
-  } -->
-  <p>
-    Posted on:
-    <time datetime={new Date(frontmatter.pubDate).toISOString().split("T")[0]}>
-      {
-        new Date(frontmatter.pubDate).toLocaleDateString("en-CA", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })
-      }
-    </time>
-  </p>
+  <article>
+    <header>
+      <h1>{frontmatter.title}</h1>
+    </header>
+    {
+      frontmatter.image && (
+        <img
+          src={frontmatter.image.url}
+          width="600"
+          alt={frontmatter.image.alt}
+        />
+      )
+    }
 
-  {frontmatter.author && <p>Written by: {frontmatter.author}</p>}
+    <p>
+      Posted on:
+      <time
+        datetime={new Date(frontmatter.pubDate).toISOString().split("T")[0]}
+      >
+        {
+          new Date(frontmatter.pubDate).toLocaleDateString("en-CA", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
+        }
+      </time>
+    </p>
 
-  <slot />
+    {frontmatter.author && <p>Written by: {frontmatter.author}</p>}
 
-  <h2>Tags:</h2>
-  {
-    frontmatter.tags && frontmatter.tags.length > 0 && (
-      <ul>
-        {frontmatter.tags.map((tag) => (
-          <li>
-            <a href={`/tags/${tag}`}>{tag}</a>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+    <slot />
+
+    <h2>Tags:</h2>
+    {
+      frontmatter.tags && frontmatter.tags.length > 0 && (
+        <ul>
+          {frontmatter.tags.map((tag) => (
+            <li>
+              <a href={`/tags/${tag}`}>{tag}</a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </article>
 </BaseLayout>

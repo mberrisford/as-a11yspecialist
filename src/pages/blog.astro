@@ -14,17 +14,35 @@ const sortedPosts = allPosts
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <h2>My awesome blog subtitle</h2>
-  <ul>
-    {
-      sortedPosts.map((post) => (
-        <BlogPost
-          url={post.url}
-          title={post.frontmatter.title}
-          description={post.frontmatter.description}
-          pubDate={post.frontmatter.pubDate}
-        />
-      ))
-    }
-  </ul>
+  <div class="grid">
+    <div>
+      <h2>All Posts</h2>
+      <ul role="list">
+        {
+          sortedPosts.map((post) => (
+            <BlogPost
+              url={post.url}
+              title={post.frontmatter.title}
+              description={post.frontmatter.description}
+              pubDate={post.frontmatter.pubDate}
+            />
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h2>All Tags</h2>
+      <ul role="list">
+        {
+          Array.from(new Set(allPosts.flatMap((post) => post.frontmatter.tags)))
+            .filter((tag) => tag !== "draft")
+            .map((tag) => (
+              <li>
+                <a href={`/tags/${tag}`}>{tag}</a>
+              </li>
+            ))
+        }
+      </ul>
+    </div>
+  </div>
 </BaseLayout>

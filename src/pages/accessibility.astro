@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Accessibility Statement";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>
+    This site has been designed and tested with accessibility in mind, following
+    the Web Content Accessibility Guidelines (WCAG) 2.2 at the AA level as well
+    as best practices. I've relied on my own expertise, tools, and knowledge to
+    make sure the site works well for as many people as possible, including
+    those using assistive technologies.
+  </p>
+  <h2>How I Test</h2>
+  <p>
+    I regularly check the site to make sure it stays accessible, using both
+    automated tools and manual testing. Here are some of the tools I use:
+  </p>
+  <ul>
+    <li>A keyboard for (you guessed it) manual keyboard navigation testing.</li>
+    <li>
+      aXe Tools, Accessibility Insights and ANDI for semi-automated testing.
+    </li>
+    <li>Colour Contrast Analyser for manual contrast checks.</li>
+    <li>NVDA, JAWS, VoiceOver and Talkback for screen reader testing.</li>
+    <li>Evaluatory for fully automated site scans (uses aXe Core).</li>
+  </ul>
+  <h2>Let Me Know If Something's Off</h2>
+  <p>
+    I know things don't always work perfectly for everyone, and I'm always
+    looking to make improvements. If you notice anything on this site that could
+    be better or if you're having trouble accessing content, I'd love to hear
+    from you!
+  </p>
+  <p>
+    I can be reached on social media via <a
+      href="https://www.linkedin.com/in/martin-berrisford-5a77aa8/">LinkedIn</a
+    >, <a href="https://bsky.app/profile/mberrisford.bsky.social">BlueSky</a> or
+    <a href="https://mastodon.social/@mberrisford">Mastodon</a>.
+  </p>
+
+  <p>Thanks for stopping by, and I hope you enjoy your time here!</p>
+</BaseLayout>

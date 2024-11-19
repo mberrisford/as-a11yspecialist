@@ -2,32 +2,33 @@
 
 ---
 
-<nav aria-label="Site">
-  <ul role="presentation">
-    <li role="presentation">
-      <a href="/" class="contrast">
-        <h4 role="presentation">
-          Martin Berrisford
-          <span class="sr-only"> - Home page</span>
-        </h4>
-      </a>
-    </li>
-  </ul>
+<div class="site-title">
+  <!-- <img src="/android-chrome-512x512.png" alt="" width="48px" /> -->
+  <span style="margin-left: 0; padding-left: 0;">Martin Berrisford</span>
+</div>
+
+<nav aria-label="Primary">
   <ul>
-    <li><a href="/about/">About</a></li>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about/">About Me</a></li>
     <li><a href="/blog/">Blog</a></li>
-    <li><a href="/tags/">Tags</a></li>
+    <!-- <li><a href="/tags/">Tags</a></li> -->
+    <li><a href="/accessibility/">Accessibility Statement</a></li>
   </ul>
 </nav>
-
+<hr aria-hidden="true" />
 <style>
   a[aria-current="page"] {
     font-weight: bold;
-    /* text-decoration: underline; */
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 5px;
   }
 
-  h4 {
-    margin: 0;
+  .site-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--pico-primary);
   }
 </style>
 
