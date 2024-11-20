@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 
   return uniqueTags.map((tag) => {
     const filteredPosts = allPosts.filter((post) =>
-      post.frontmatter.tags.includes(tag)
+      post.frontmatter.tags.includes(tag),
     );
     return {
       params: { tag },
@@ -37,7 +37,7 @@ const { posts } = Astro.props;
       ))
     }
   </ul>
-  <p>
+  <!-- <p>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -52,5 +52,5 @@ const { posts } = Astro.props;
       ></path>
     </svg>
     <a href="javascript:history.back()">Go Back</a>
-  </p>
+  </p> -->
 </BaseLayout>

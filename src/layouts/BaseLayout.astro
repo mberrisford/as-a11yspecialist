@@ -25,6 +25,7 @@ const { pageTitle } = Astro.props;
     <Header />
 
     <main id="main" class="container" tabindex="-1">
+      <hr />
       <section>
         {
           !Astro.url.pathname.includes("/posts/") &&
@@ -32,7 +33,7 @@ const { pageTitle } = Astro.props;
         }
         <slot />
       </section>
-      {
+      <!-- {
         Astro.url.pathname.includes("/posts/") && (
           <p>
             <svg
@@ -46,10 +47,10 @@ const { pageTitle } = Astro.props;
             >
               <path d="M17.026 22.957c10.957-11.421-2.326-20.865-10.384-13.309l2.464 2.352h-9.106v-8.947l2.232 2.229c14.794-13.203 31.51 7.051 14.794 17.675z" />
             </svg>
-            <a href="javascript:history.back()">Go Back</a>
+            <a href="javascript:window.history.back()">Go Back</a>
           </p>
         )
-      }
+      } -->
     </main>
     <Footer />
 
@@ -58,3 +59,12 @@ const { pageTitle } = Astro.props;
     </script>
   </body>
 </html>
+
+<style>
+  .container {
+    margin-top: -2rem;
+  }
+  hr {
+    margin-top: 0;
+  }
+</style>
