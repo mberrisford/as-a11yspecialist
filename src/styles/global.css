@@ -17,11 +17,21 @@ a:hover {
   text-decoration-thickness: 3px;
 }
 
+.post-list {
+  padding: 0;
+  margin: 0;
+}
+
+.post-list li {
+  list-style: none;
+}
+
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --pico-primary-underline: var(--pico-primary);
     --pico-primary-focus: var(--pico-primary);
     --pico-muted-color: var(--pico-color);
+    --pico-muted-border-color: var(--pico-color);
   }
 
   /* Shiki theme overides for code blocks in dark mode */
@@ -40,5 +50,7 @@ a:hover {
   :root:not([data-theme]) {
     --pico-primary-underline: var(--pico-primary);
     --pico-primary-focus: var(--pico-primary);
+    --pico-muted-color: var(--pico-color);
+    --pico-muted-border-color: var(--pico-color);
   }
 }

@@ -13,7 +13,7 @@ const recentPosts = sortedPosts.slice(0, 3);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <hgroup>
+  <article>
     <h1>Welcome!</h1>
     <p>
       I'm Martin Berrisford, a digital accessibility and assistive technology
@@ -21,9 +21,9 @@ const recentPosts = sortedPosts.slice(0, 3);
       accessibility, assistive technology, and various other topics that
       captivate my interest.
     </p>
-  </hgroup>
+  </article>
   <h2>Most Recent Posts</h2>
-  <ul>
+  <ul role="list" class="post-list">
     {
       recentPosts.map((post) => (
         <BlogPost

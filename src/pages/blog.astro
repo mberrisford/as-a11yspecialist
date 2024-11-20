@@ -17,7 +17,7 @@ const sortedPosts = allPosts
   <div class="grid">
     <div>
       <h2>All Posts</h2>
-      <ul role="list">
+      <ul role="list" class="post-list">
         {
           sortedPosts.map((post) => (
             <BlogPost
@@ -30,8 +30,9 @@ const sortedPosts = allPosts
         }
       </ul>
     </div>
-    <div>
-      <h2>All Tags</h2>
+
+    <div role="complementary">
+      <h2>Tags</h2>
       <ul role="list">
         {
           Array.from(new Set(allPosts.flatMap((post) => post.frontmatter.tags)))
@@ -46,3 +47,19 @@ const sortedPosts = allPosts
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  /*  */
+</style>
