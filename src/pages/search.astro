@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
+
+// Get all posts at build time
+const allPosts = await Astro.glob("../pages/posts/*.md");
+const searchablePosts = allPosts
+  .filter((post) => !post.frontmatter.tags.includes("draft"))
+  .map((post) => ({
+    url: post.url,
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
+    pubDate: post.frontmatter.pubDate,
+    content: post.rawContent(),
+    tags: post.frontmatter.tags,
+  }));
+
+const pageTitle = "Search Results";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="search-results">
+    <div id="results-info"></div>
+    <ul role="list" class="post-list" id="search-results"></ul>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ searchablePosts }}>
+  // Get the query parameter from the URL
+  const queryParams = new URLSearchParams(window.location.search);
+  const query = queryParams.get("q")?.toLowerCase() || "";
+
+  // Function to render search results
+  function renderResults(results) {
+    const resultsContainer = document.getElementById("search-results");
+    const resultsInfo = document.getElementById("results-info");
+
+    if (!query) {
+      resultsInfo.innerHTML =
+        "<p>Enter a search term in the search box above to find blog posts.</p>";
+      resultsContainer.innerHTML = "";
+      return;
+    }
+
+    resultsInfo.innerHTML = `
+      <p class="results-summary">
+        Found ${results.length} ${results.length === 1 ? "result" : "results"} for "${query}":
+      </p>
+    `;
+
+    if (results.length === 0) {
+      resultsContainer.innerHTML =
+        "<p>No posts found matching your search.</p>";
+      return;
+    }
+
+    resultsContainer.innerHTML = results
+      .map(
+        (post) => `
+          <li class="post">
+            <a href="${post.url}">${post.title}</a>
+            <p>${new Date(post.pubDate).toLocaleDateString()} - ${post.description}</p>
+          </li>
+        `,
+      )
+      .join("");
+  }
+
+  // Perform the search
+  const searchResults = searchablePosts
+    .filter((post) => {
+      const searchContent = `
+        ${post.title}
+        ${post.description}
+        ${post.tags.join(" ")}
+        ${post.content}
+      `.toLowerCase();
+
+      return searchContent.includes(query);
+    })
+    .sort(
+      (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
+    );
+
+  // Initial render
+  renderResults(searchResults);
+
+  // Update results when the URL changes (browser back/forward)
+  window.addEventListener("popstate", () => {
+    const newQuery =
+      new URLSearchParams(window.location.search).get("q")?.toLowerCase() || "";
+    const newResults = searchablePosts
+      .filter((post) => {
+        const searchContent = `
+          ${post.title}
+          ${post.description}
+          ${post.tags.join(" ")}
+          ${post.content}
+        `.toLowerCase();
+
+        return searchContent.includes(newQuery);
+      })
+      .sort(
+        (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
+      );
+
+    renderResults(newResults);
+  });
+</script>

@@ -13,6 +13,7 @@
 a {
   text-underline-offset: 5px;
 }
+
 a:hover {
   text-decoration-thickness: 3px;
 }
@@ -32,6 +33,7 @@ a:hover {
     --pico-primary-focus: var(--pico-primary);
     --pico-muted-color: var(--pico-color);
     --pico-muted-border-color: var(--pico-color);
+    --pico-code-color: var(--pico-color);
   }
 
   /* Shiki theme overides for code blocks in dark mode */
@@ -52,5 +54,6 @@ a:hover {
     --pico-primary-focus: var(--pico-primary);
     --pico-muted-color: var(--pico-color);
     --pico-muted-border-color: var(--pico-color);
+    --pico-code-color: var(--pico-color);
   }
 }
