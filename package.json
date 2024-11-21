@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "scan": "evaluatory --sitemap https://a11yspecialist.netlify.app/sitemap-0.xml --output scan_results"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.9",
