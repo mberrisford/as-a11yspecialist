@@ -15,15 +15,81 @@ const searchablePosts = allPosts
     tags: post.frontmatter.tags,
   }));
 
-const pageTitle = "Search Results";
+const pageTitle = "Search Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+  <form role="search" action="/search" method="get">
+    <input type="search" name="q" aria-label="Search blog posts" />
+    <button type="submit">Search</button>
+  </form>
   <div class="search-results">
     <div id="results-info"></div>
     <ul role="list" class="post-list" id="search-results"></ul>
   </div>
 </BaseLayout>
+
+<style>
+  .search-container {
+    margin: 2rem auto;
+    max-width: 600px;
+  }
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .search-form label {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
+  .search-form input[type="search"] {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    background: var(--background-color, white);
+    color: var(--text-color);
+  }
+
+  .search-form input[type="search"]:focus {
+    outline: none;
+    border-color: var(--accent-color, #4a9eff);
+    box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+  }
+
+  .search-form button {
+    padding: 0.5rem;
+    background: var(--accent-color, #4a9eff);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+
+  .search-form button:hover,
+  .search-form button:focus {
+    background: var(--accent-dark-color, #3182ce);
+  }
+
+  .search-form button svg {
+    width: 20px;
+    height: 20px;
+  }
+</style>
 
 <script define:vars={{ searchablePosts }}>
   // Get the query parameter from the URL
@@ -43,14 +109,14 @@ const pageTitle = "Search Results";
     }
 
     resultsInfo.innerHTML = `
-      <p class="results-summary">
-        Found ${results.length} ${results.length === 1 ? "result" : "results"} for "${query}":
-      </p>
+      <h2>
+        Found ${results.length} ${results.length === 1 ? "result" : "results"} for "${query}"
+      </h2>
     `;
 
     if (results.length === 0) {
       resultsContainer.innerHTML =
-        "<p>No posts found matching your search.</p>";
+        "<p>No posts found matching your search. Please enter a different search term in the search box above.</p>";
       return;
     }
 
