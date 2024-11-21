@@ -4,7 +4,12 @@ import Social from "./Social.astro";
 
 <footer class="container">
   <hr aria-hidden="true" />
-
+  <nav aria-label="Secondary">
+    <ul role="list">
+      <li><a href="/sitemap/">Site Map</a></li>
+      <li><a href="/accessibility/">Accessibility Statement</a></li>
+    </ul>
+  </nav>
   <nav aria-label="Social media">
     <ul role="list">
       <li>
@@ -93,9 +98,16 @@ import Social from "./Social.astro";
 <style>
   a[aria-current="page"] {
     font-weight: bold;
+    text-decoration: underline;
   }
 
   svg {
     color: var(--pico-primary);
+  }
+  nav li {
+    /* margin-bottom: 0; */
+    padding-bottom: 1.5rem;
+    /* margin-top: 0; */
+    padding-top: 0;
   }
 </style>

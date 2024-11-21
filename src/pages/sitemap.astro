@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Site Map";
+
+// Get all pages
+const pages = await Astro.glob("./*.astro");
+const posts = await Astro.glob("./posts/*.md");
+const tags = [
+  ...new Set(posts.map((post) => post.frontmatter.tags).flat()),
+].sort((a, b) => a.localeCompare(b));
+
+// Filter out the sitemap page itself and organize pages
+const mainPages = pages
+  .filter((page) => {
+    const url = page.url || page.file.split("/pages/")[1].replace(".astro", "");
+    return !url.includes("sitemap") && !url.includes("rss.xml");
+  })
+  .map((page) => {
+    const filePath = page.file.split("/pages/")[1].replace(".astro", "");
+    const url = page.url || `/${filePath}`;
+
+    let title;
+    if (filePath === "index") {
+      title = "Home Page";
+    } else if (url === "/about") {
+      title = "About Me";
+    } else if (url === "/blog") {
+      title = "Blog";
+    } else if (url === "/accessibility") {
+      title = "Accessibility Statement";
+    } else if (url === "/search") {
+      title = "Search Blog";
+    } else {
+      title =
+        url.split("/")[1].charAt(0).toUpperCase() + url.split("/")[1].slice(1);
+    }
+
+    return {
+      url,
+      title,
+    };
+  });
+
+// Sort posts by date
+const sortedPosts = posts
+  .filter((post) => !post.frontmatter.tags.includes("draft"))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).getTime() -
+      new Date(a.frontmatter.pubDate).getTime(),
+  )
+  .map((post) => ({
+    url: post.url,
+    title: post.frontmatter.title,
+    date: new Date(post.frontmatter.pubDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
+  }));
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <h2 id="main-pages">Main Pages</h2>
+  <ul>
+    {
+      mainPages.map((page) => (
+        <li>
+          <a href={page.url}>{page.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2 id="blog-posts">Blog Posts</h2>
+  <ul>
+    {
+      sortedPosts.map((post) => (
+        <li>
+          <a href={post.url}>{post.title}</a>
+          <span class="post-date">({post.date})</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2 id="tags-section">Blog Tags</h2>
+  <ul>
+    {
+      tags.map((tag) => (
+        <li>
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
