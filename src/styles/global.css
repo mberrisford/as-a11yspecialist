@@ -41,6 +41,10 @@ button:focus-visible {
   box-shadow: 0 0 3px var(--pico-outline-width) var(--pico-primary-focus);
 }
 
+main:focus {
+  outline: none;
+}
+
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --pico-primary-underline: var(--pico-primary);
