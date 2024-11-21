@@ -25,4 +25,4 @@ pnpm-debug.log*
 
 .vscode/
 backup/
-scan_results/
+evaluatory-results/

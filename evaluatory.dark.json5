@@ -1,0 +1,16 @@
+{
+  // Output folder
+  output: "evaluatory-results/dark",
+ 
+  // Modules to run
+  modules: ["axe-core", "screenshot"],
+
+  modulesConfig: {
+    "axe-core": {
+      runOnly: {
+        type: "tag",
+        values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa","wcag22aa", "best-practice"],
+      },
+    },
+  },
+}

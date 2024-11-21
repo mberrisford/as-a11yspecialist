@@ -8,7 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "scan": "evaluatory --sitemap https://a11yspecialist.netlify.app/sitemap-0.xml --output scan_results"
+    "scan-light": "evaluatory --config evaluatory.light.json5 --sitemap https://a11yspecialist.netlify.app/sitemap-0.xml --color-scheme light",
+    "scan-dark": "evaluatory --config evaluatory.dark.json5 --sitemap https://a11yspecialist.netlify.app/sitemap-0.xml --color-scheme dark",
+    "scan": "npm run scan-light && npm run scan-dark"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.9",

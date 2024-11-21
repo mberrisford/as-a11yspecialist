@@ -20,7 +20,7 @@ const pageTitle = "Search Blog";
 
 <BaseLayout pageTitle={pageTitle}>
   <form role="search" action="/search" method="get">
-    <input type="search" name="q" aria-label="Search blog posts" />
+    <input type="search" name="q" aria-label="Search blog posts" required />
     <button type="submit">Search</button>
   </form>
   <div class="search-results">
