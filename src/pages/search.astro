@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogPost from "../components/BlogPost.astro";
 
 // Get all posts at build time
 const allPosts = await Astro.glob("../pages/posts/*.md");
@@ -29,67 +28,7 @@ const pageTitle = "Search Blog";
   </div>
 </BaseLayout>
 
-<style>
-  .search-container {
-    margin: 2rem auto;
-    max-width: 600px;
-  }
-
-  .search-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .search-input-wrapper {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .search-form label {
-    font-weight: 500;
-    color: var(--text-color);
-  }
-
-  .search-form input[type="search"] {
-    flex: 1;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: 2px solid var(--border-color, #ddd);
-    border-radius: 4px;
-    background: var(--background-color, white);
-    color: var(--text-color);
-  }
-
-  .search-form input[type="search"]:focus {
-    outline: none;
-    border-color: var(--accent-color, #4a9eff);
-    box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
-  }
-
-  .search-form button {
-    padding: 0.5rem;
-    background: var(--accent-color, #4a9eff);
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-  }
-
-  .search-form button:hover,
-  .search-form button:focus {
-    background: var(--accent-dark-color, #3182ce);
-  }
-
-  .search-form button svg {
-    width: 20px;
-    height: 20px;
-  }
-</style>
+<style></style>
 
 <script define:vars={{ searchablePosts }}>
   // Get the query parameter from the URL
@@ -125,7 +64,7 @@ const pageTitle = "Search Blog";
         (post) => `
           <li class="post">
             <a href="${post.url}">${post.title}</a>
-            <p>${new Date(post.pubDate).toLocaleDateString()} - ${post.description}</p>
+            <p>${new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(new Date(post.pubDate))} - ${post.description}</p>
           </li>
         `,
       )
