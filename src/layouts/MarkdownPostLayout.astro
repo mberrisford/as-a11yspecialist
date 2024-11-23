@@ -44,3 +44,50 @@ const { frontmatter } = Astro.props;
     )
   }
 </BaseLayout>
+
+<style is:global>
+  pre:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+  }
+</style>
+
+<script>
+  // Function to check if an element is scrollable
+  function isScrollable(element) {
+    return (
+      element.scrollWidth > element.clientWidth ||
+      element.scrollHeight > element.clientHeight
+    );
+  }
+
+  // Function to update tabindex based on scrollability
+  function updateTabIndex(element) {
+    if (isScrollable(element)) {
+      element.setAttribute("tabindex", "0");
+    } else {
+      element.removeAttribute("tabindex");
+    }
+  }
+
+  // Find all pre elements that contain code blocks
+  const preElements = document.querySelectorAll("pre");
+
+  // Create a ResizeObserver to watch for size changes
+  const resizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      updateTabIndex(entry.target);
+    });
+  });
+
+  // Observe each pre element
+  preElements.forEach((pre) => {
+    updateTabIndex(pre); // Initial check
+    resizeObserver.observe(pre);
+  });
+
+  // Also update on window resize (for safety, in case ResizeObserver misses anything)
+  window.addEventListener("resize", () => {
+    preElements.forEach(updateTabIndex);
+  });
+</script>
