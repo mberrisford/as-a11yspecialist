@@ -2,7 +2,7 @@
 layout: ../../layouts/MarkdownPostLayout.astro
 title: "Group Form Controls - fieldset vs. role=group"
 pubDate: 2024-11-23
-description: "Grouping form controls with <fieldset> or role=group is a crucial part of creating accessible forms."
+description: "Grouping form controls with fieldset or role=group is a crucial part of creating accessible forms."
 author: "Martin Berrisford"
 # image:
 #   url: "https://docs.astro.build/assets/rose.webp"
