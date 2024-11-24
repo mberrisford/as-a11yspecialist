@@ -45,6 +45,10 @@ main:focus {
   outline: none;
 }
 
+ul li {
+  list-style: disc
+}
+
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --pico-primary-underline: var(--pico-primary);

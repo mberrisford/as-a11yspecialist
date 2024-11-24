@@ -18,7 +18,8 @@ const mainPages = pages
   })
   .map((page) => {
     const filePath = page.file.split("/pages/")[1].replace(".astro", "");
-    const url = page.url || `/${filePath}`;
+    // Handle the home page URL specially
+    const url = filePath === "index" ? "/" : `/${filePath}`;
 
     let title;
     if (filePath === "index") {
