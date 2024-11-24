@@ -25,7 +25,7 @@ const { pageTitle } = Astro.props;
     <Header />
 
     <main id="main" class="container" tabindex="-1">
-      <hr />
+      <hr aria-hidden="true" />
       <section>
         {
           !Astro.url.pathname.includes("/posts/") &&
