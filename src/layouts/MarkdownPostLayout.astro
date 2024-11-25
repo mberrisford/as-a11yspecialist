@@ -1,6 +1,29 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
+
+// Get the raw content
+const content = await Astro.slots.render("default");
+
+// Function to generate consistent IDs
+function generateId(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+// Extract h2 headings and create TOC items
+const headings = [];
+const regex = /<h2.*?>(.*?)<\/h2>/g;
+let match;
+
+while ((match = regex.exec(content)) !== null) {
+  const text = match[1].replace(/<[^>]*>/g, ""); // Remove any HTML tags inside heading
+  const id = generateId(text);
+  headings.push({ text, id });
+}
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
@@ -29,9 +52,26 @@ const { frontmatter } = Astro.props;
     )
   }
 
+  {
+    headings.length > 0 && (
+      <>
+        <div role="navigation" aria-labelledby="TOC-heading">
+          <h2 id="TOC-heading">In this article</h2>
+          <ul>
+            {headings.map(({ text, id }) => (
+              <li>
+                <a href={`#${id}`}>{text}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </>
+    )
+  }
+
   <slot />
 
-  <h2>Tags:</h2>
+  <h2 id="tags">Tags:</h2>
   {
     frontmatter.tags && frontmatter.tags.length > 0 && (
       <ul>
@@ -45,14 +85,16 @@ const { frontmatter } = Astro.props;
   }
 </BaseLayout>
 
-<style is:global>
-  pre:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
-  }
-</style>
-
 <script>
+  // Function to generate consistent IDs
+  function generateId(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
   // Function to check if an element is scrollable
   function isScrollable(element) {
     return (
@@ -70,24 +112,72 @@ const { frontmatter } = Astro.props;
     }
   }
 
-  // Find all pre elements that contain code blocks
-  const preElements = document.querySelectorAll("pre");
+  // Function to initialize headings
+  function initializeHeadings() {
+    // Add IDs and tabindex to h2 headings if they don't have them
+    document.querySelectorAll("h2:not(#TOC)").forEach((heading) => {
+      if (!heading.id) {
+        const id = generateId(heading.textContent);
+        heading.id = id;
+      }
+      // Always set tabindex="-1" on content headings
+      heading.setAttribute("tabindex", "-1");
+    });
+  }
 
-  // Create a ResizeObserver to watch for size changes
-  const resizeObserver = new ResizeObserver((entries) => {
-    entries.forEach((entry) => {
-      updateTabIndex(entry.target);
+  // Function to initialize code blocks
+  function initializeCodeBlocks() {
+    const preElements = document.querySelectorAll("pre");
+
+    // Create a ResizeObserver to watch for size changes
+    const resizeObserver = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        updateTabIndex(entry.target);
+      });
+    });
+
+    // Observe each pre element
+    preElements.forEach((pre) => {
+      updateTabIndex(pre); // Initial check
+      resizeObserver.observe(pre);
+    });
+
+    // Also update on window resize (for safety, in case ResizeObserver misses anything)
+    window.addEventListener("resize", () => {
+      preElements.forEach(updateTabIndex);
+    });
+  }
+
+  // Initialize everything when the DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+    initializeHeadings();
+    initializeCodeBlocks();
+  });
+
+  // Also handle dynamic content changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === "childList") {
+        initializeHeadings();
+      }
     });
   });
 
-  // Observe each pre element
-  preElements.forEach((pre) => {
-    updateTabIndex(pre); // Initial check
-    resizeObserver.observe(pre);
-  });
-
-  // Also update on window resize (for safety, in case ResizeObserver misses anything)
-  window.addEventListener("resize", () => {
-    preElements.forEach(updateTabIndex);
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
   });
 </script>
+
+<style is:global>
+  pre:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+  }
+
+  /* Style for focused headings */
+  h2:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+  }
+</style>
