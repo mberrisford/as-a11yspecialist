@@ -41,10 +41,6 @@ button:focus-visible {
   box-shadow: 0 0 3px var(--pico-outline-width) var(--pico-primary-focus);
 }
 
-main:focus {
-  outline: none;
-}
-
 ul li {
   list-style: disc
 }
@@ -58,6 +54,7 @@ ul li {
     --pico-muted-border-color: var(--pico-color);
     --pico-code-color: var(--pico-color);
     --pico-icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(210, 67, 23)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    --pico-form-element-border-color: var(--pico-muted-border-color);
 
   }
 
@@ -74,8 +71,6 @@ ul li {
 
   .pass {
     color: lightgreen;
-    text-decoration: dashed underline;
-    text-underline-offset: 4px;
   }
 
   .fail {
@@ -92,6 +87,7 @@ ul li {
     --pico-muted-border-color: var(--pico-color);
     --pico-code-color: var(--pico-color);
     --pico-icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(210, 67, 23)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    --pico-form-element-border-color: var(--pico-muted-border-color);
   }
 
   .pass {

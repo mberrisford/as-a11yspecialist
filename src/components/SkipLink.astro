@@ -2,7 +2,16 @@
 
 ---
 
-<a href="#main" class="skip-main">Skip to content</a>
+<!-- <a href="#main">Skip to content</a> -->{
+  Astro.url.pathname === "/search" ? (
+    <>
+      <a href="#main">Skip to content</a>
+      <a href="#results-heading">Skip to search results</a>
+    </>
+  ) : (
+    <a href="#main">Skip to content</a>
+  )
+}
 
 <style>
   a {

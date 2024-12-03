@@ -14,7 +14,7 @@ const sortedPosts = allPosts
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <div class="grid">
+  <div class="custom-grid">
     <div>
       <h2>All Posts</h2>
       <form role="search" action="/search" method="get">
@@ -52,14 +52,14 @@ const sortedPosts = allPosts
   </div>
 
   <style>
-    .grid {
+    .custom-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
     }
 
     @media (min-width: 768px) {
-      .grid {
+      .custom-grid {
         grid-template-columns: 2fr 1fr;
       }
     }

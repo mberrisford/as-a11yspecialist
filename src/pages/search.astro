@@ -48,7 +48,7 @@ const pageTitle = "Search Blog";
     }
 
     resultsInfo.innerHTML = `
-      <h2>
+      <h2 id="results-heading" tabindex="-1">
         Found ${results.length} ${results.length === 1 ? "result" : "results"} for "${query}"
       </h2>
     `;
