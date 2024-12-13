@@ -8,7 +8,8 @@ const pages = await Astro.glob("./*.astro");
 const posts = await Astro.glob("./posts/*.md");
 const tags = [
   ...new Set(posts.map((post) => post.frontmatter.tags).flat()),
-].sort((a, b) => a.localeCompare(b));
+].sort((a, b) => a.localeCompare(b))
+  .filter(tag => tag !== "draft");
 
 // Filter out the sitemap page itself and organize pages
 const mainPages = pages

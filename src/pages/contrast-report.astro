@@ -2,19 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout pageTitle="Contrast Report Generator">
+<BaseLayout pageTitle="Contrast Report Generator (Beta)">
+	<p>
+		<strong
+			>Note: This is a work in progress. Please let me know if you have
+			any issues or suggestions.</strong
+		>
+	</p>
 	<h2 id="">Add Colour Pairs</h2>
+
 	<p id="required-fields-info">
 		All fields are required. Use hex colours only. For example: <code
 			>#FFF000</code
 		>. After adding a colour pair, results will be added in the report below
 		automatically.
 	</p>
-	<form
-		id="contrastForm"
-		aria-labelledby="input-section"
-		aria-describedby="required-fields-info"
-	>
+	<form id="contrastForm" aria-labelledby="input-section">
 		<div class="grid">
 			<div>
 				<label for="component">Component:</label>
@@ -96,18 +99,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			/>
 
 			<button
+				class="outline"
 				type="button"
 				id="exportResults"
 				aria-label="Export results to JSON file"
 				>Export Results (.json)</button
 			>
 			<button
+				class="outline"
 				type="button"
 				id="importButton"
 				aria-label="Import results from JSON file"
 				>Import Results (.json)</button
 			>
-			<button type="button" id="clearResults">Clear Results</button>
+			<button class="outline" type="button" id="clearResults"
+				>Clear Results</button
+			>
 		</div>
 	</form>
 
@@ -160,7 +167,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	}
 </style>
 
-<script is:inline>
+<!-- <script is:inline> -->
+<script>
 	function deleteRow(button) {
 		const row = button.closest("tr");
 		row.remove();
@@ -474,4 +482,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			announcement.textContent = "";
 		}, 3000);
 	}
+
+	function showToast(message) {
+		const toast = document.createElement("div");
+		toast.textContent = message;
+		toast.style.position = "fixed";
+		toast.style.bottom = "1.25rem";
+		toast.style.left = "50%";
+		toast.style.transform = "translateX(-50%)";
+		toast.style.backgroundColor = "#333";
+		toast.style.color = "#fff";
+		toast.style.padding = "0.625rem 1.25rem";
+		toast.style.borderRadius = "0.3125rem";
+		toast.style.boxShadow = "0px 0px 0.625rem rgba(0, 0, 0, 0.1)";
+		document.body.appendChild(toast);
+		setTimeout(() => {
+			document.body.removeChild(toast);
+		}, 7000);
+	}
+
+	form.addEventListener("submit", function (e) {
+		e.preventDefault();
+		// Existing code...
+
+		// Show toast message
+		showToast("Colour pair added");
+
+		// Existing code...
+	});
 </script>

@@ -32,13 +32,18 @@ input[type="search"] {
 }
 
 button:focus-visible {
-  outline: var(--pico-primary-inverse) solid 2px;
-  outline-offset: -4px;
+  outline: var(--pico-primary-inverse) solid 3px;
+  outline-offset: -5px;
 }
 
 :where(a:not([role=button])):focus-visible,
 [role=link]:focus-visible {
   box-shadow: 0 0 3px var(--pico-outline-width) var(--pico-primary-focus);
+}
+
+input[type="text"]:focus-visible,
+select:focus-visible {
+  outline: var(--pico-primary-focus) solid 3px;
 }
 
 ul li {
@@ -55,7 +60,7 @@ ul li {
     --pico-code-color: var(--pico-color);
     --pico-icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(210, 67, 23)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
     --pico-form-element-border-color: var(--pico-muted-border-color);
-
+    --pico-primary-hover-background: var(--pico-primary-background);
   }
 
   /* Shiki theme overides for code blocks in dark mode */
@@ -76,7 +81,9 @@ ul li {
   .fail {
     color: red;
     text-decoration: wavy underline;
+
   }
+
 }
 
 @media only screen and (prefers-color-scheme: light) {

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout pageTitle="A11y Testing Tools">
+	<p>Here are some of the tools I use regularly to test accessibility.</p>
 	<section class="tools-section">
 		<h2>Browser Extensions</h2>
 		<div class="tools-grid">
@@ -137,15 +138,40 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			<article class="tool-card">
 				<h3>Contrast Report Generator</h3>
 				<p>
-					My tool for checking and reporting colour contrast
-					conformance of colour pairs. The results can be exported and
-					imported later or saved as a CSV file for easy import into
-					other tools like Excel.
+					My tool for reporting WCAG colour contrast conformance of
+					colour pairs. The results can be exported and imported later
+					or saved as a CSV file for easy import into other tools like
+					Excel.
 				</p>
 				<div class="tool-links">
 					<a href="/contrast-report" class="button"
 						>Visit Contrast Report Generator</a
 					>
+				</div>
+			</article>
+		</div>
+	</section>
+	<section class="tools-section">
+		<h2>PDF Testing</h2>
+		<div class="tools-grid">
+			<article class="tool-card">
+				<h3>PDF Accessibility Checker (PAC)</h3>
+				<p>
+					A free tool that checks PDFs against PDF/UA and WCAG
+					requirements and provides reports on accessibility issues.
+					It also helps facilitate manual testing by offering tools
+					for inspecting PDFs.
+				</p>
+				<div class="tool-links">
+					<a href="https://pac.pdf-accessibility.org/" class="button">
+						Get PAC
+					</a>
+					<a
+						href="https://pac.pdf-accessibility.org/en/resources/quickstart-guide"
+						class="button outline"
+					>
+						PAC Quickstart Guide
+					</a>
 				</div>
 			</article>
 		</div>
@@ -175,8 +201,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			<article class="tool-card">
 				<h3>JAWS</h3>
 				<p>
-					Professional screen reader for Windows. Industry standard
-					with extensive features for thorough accessibility testing.
+					Professional screen reader for Windows. Widely used in
+					corporate and government settings as well as for personal
+					use.
 				</p>
 				<div class="tool-links">
 					<a
@@ -240,102 +267,60 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 					</a>
 				</div>
 			</article>
-			<article class="tool-card">
-				<h3>Narrator</h3>
-				<p>
-					Built-in screen reader for Windows. Useful for basic
-					accessibility testing.
-				</p>
-				<div class="tool-links">
-					<a
-						href="https://support.microsoft.com/en-us/windows/complete-guide-to-narrator-e4397a0d-ef4f-b386-d8ae-c172f109bdb1"
-						class="button"
-					>
-						Narrator User Guide
-					</a>
-				</div>
-			</article>
-			<article class="tool-card">
-				<h3>ORCA</h3>
-				<p>
-					An open-source screen reader for Linux. Default screen
-					reader for GNOME desktop distributions.
-				</p>
-				<div class="tool-links">
-					<a href="https://orca.gnome.org/" class="button outline">
-						ORCA Project Page
-					</a>
-				</div>
-			</article>
-			<article class="tool-card">
-				<h3>ChromeVox</h3>
-				<p>
-					A screen reader extension for Chrome. Useful for light
-					testing directly in the browser.
-				</p>
-				<div class="tool-links">
-					<a
-						href="https://chrome.google.com/webstore/detail/chromevox-classic-extensi/kgejglhpjiefppelpmljglcjbhoiplfn"
-						class="button"
-					>
-						Get ChromeVox Extension
-					</a>
-				</div>
-			</article>
 		</div>
 	</section>
-</BaseLayout>
 
-<style>
-	/* .tools-section {
+	<style>
+		/* .tools-section {
 		margin: 2rem 0;
 	} */
 
-	.tools-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 1.5rem;
-		margin-top: 1rem;
-	}
-
-	.tool-card {
-		padding: 1.5rem;
-		border: 1px solid var(--pico-muted-border-color);
-		border-radius: var(--pico-border-radius);
-		background: var(--pico-card-background-color);
-	}
-
-	.tool-card h3 {
-		margin: 0 0 1rem 0;
-	}
-
-	.tool-card p {
-		margin-bottom: 1.5rem;
-	}
-
-	.tool-links {
-		display: flex;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-	}
-
-	.tool-links .button {
-		margin: 0;
-	}
-
-	/* Responsive adjustments */
-	@media (max-width: 768px) {
 		.tools-grid {
-			grid-template-columns: 1fr;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			margin-top: 1rem;
+		}
+
+		.tool-card {
+			padding: 1.5rem;
+			border: 1px solid var(--pico-muted-border-color);
+			border-radius: var(--pico-border-radius);
+			background: var(--pico-card-background-color);
+		}
+
+		.tool-card h3 {
+			margin: 0 0 1rem 0;
+		}
+
+		.tool-card p {
+			margin-bottom: 1.5rem;
 		}
 
 		.tool-links {
-			flex-direction: column;
+			display: flex;
+			gap: 0.5rem;
+			flex-wrap: wrap;
 		}
 
 		.tool-links .button {
-			width: 100%;
-			text-align: center;
+			margin: 0;
 		}
-	}
-</style>
+
+		/* Responsive adjustments */
+		@media (max-width: 768px) {
+			.tools-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.tool-links {
+				flex-direction: column;
+			}
+
+			.tool-links .button {
+				width: 100%;
+				text-align: center;
+			}
+		}
+	</style>
+</BaseLayout>
