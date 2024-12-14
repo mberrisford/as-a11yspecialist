@@ -8,8 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "scan-light": "evaluatory --config evaluatory.light.json5 --sitemap https://a11yspecialist.netlify.app/sitemap-0.xml --color-scheme light",
-    "scan-dark": "evaluatory --config evaluatory.dark.json5 --sitemap https://a11yspecialist.netlify.app/sitemap-0.xml --color-scheme dark",
+    "scan-light": "evaluatory --config evaluatory.light.json5 --sitemap https://accessibilityspecialist.ca/sitemap-0.xml --color-scheme light",
+    "scan-dark": "evaluatory --config evaluatory.dark.json5 --sitemap https://accessibilityspecialist.ca/sitemap-0.xml --color-scheme dark",
     "scan": "npm run scan-light && npm run scan-dark"
   },
   "dependencies": {
