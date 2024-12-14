@@ -44,12 +44,16 @@ const pageTitle = "Search Blog";
       resultsInfo.innerHTML =
         "<p>Enter a search term in the search box above to find blog posts.</p>";
       resultsContainer.innerHTML = "";
+      document.title = "Search Blog";
       return;
     }
 
+    const resultsText = `Found ${results.length} ${results.length === 1 ? "result" : "results"} for "${query}"`;
+    document.title = `${resultsText} - Search Blog`;
+
     resultsInfo.innerHTML = `
       <h2 id="results-heading" tabindex="-1">
-        Found ${results.length} ${results.length === 1 ? "result" : "results"} for "${query}"
+        ${resultsText}
       </h2>
     `;
 
