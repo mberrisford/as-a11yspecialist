@@ -149,6 +149,50 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	</div>
 	<div role="status" class="sr-only" id="sr-announcement" aria-live="polite">
 	</div>
+
+	<!-- Clear Results Confirmation Modal -->
+	<dialog
+		id="clearConfirmModal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="clearModalTitle"
+		aria-describedby="clearModalDesc"
+	>
+		<article>
+			<header>
+				<h2 id="clearModalTitle">Clear All Results?</h2>
+			</header>
+			<p id="clearModalDesc">
+				Are you sure you want to clear all results? Consider exporting
+				your results first.
+			</p>
+			<footer>
+				<button class="outline" onclick="closeClearConfirmModal()"
+					>Cancel</button
+				>
+				<button onclick="confirmClearResults()">Clear All</button>
+			</footer>
+		</article>
+	</dialog>
+
+	<!-- Alert Modal -->
+	<dialog
+		id="alertModal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="alertModalTitle"
+		aria-describedby="alertMessage"
+	>
+		<article>
+			<header>
+				<h2 id="alertModalTitle">Alert</h2>
+			</header>
+			<p id="alertMessage"></p>
+			<footer>
+				<button onclick="closeAlertModal()">OK</button>
+			</footer>
+		</article>
+	</dialog>
 </BaseLayout>
 
 <style>
@@ -163,6 +207,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </style>
 
 <script is:inline>
+	// Modal handling functions
+	function showAlert(message) {
+		document.getElementById("alertMessage").textContent = message;
+		document.getElementById("alertModal").showModal();
+	}
+
+	function closeAlertModal() {
+		document.getElementById("alertModal").close();
+	}
+
+	function showClearConfirmModal() {
+		document.getElementById("clearConfirmModal").showModal();
+	}
+
+	function closeClearConfirmModal() {
+		document.getElementById("clearConfirmModal").close();
+	}
+
+	function confirmClearResults() {
+		closeClearConfirmModal();
+		clearAllResults();
+	}
+
 	function deleteRow(button) {
 		const row = button.closest("tr");
 		const component = row.cells[0].textContent.trim();
@@ -270,7 +337,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 				announcement.textContent = "";
 			}, 3000);
 		} else {
-			alert("No results to export! Please add some colour pairs first.");
+			showAlert(
+				"No results to export! Please add some colour pairs first.",
+			);
 		}
 	});
 
@@ -323,15 +392,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	// Clear results functionality
 	document.getElementById("clearResults").addEventListener("click", () => {
 		if (document.querySelectorAll("#contrastResults tbody tr").length > 0) {
-			if (
-				confirm(
-					"Are you sure you want to clear all results? Consider exporting your results first.",
-				)
-			) {
-				clearAllResults();
-			}
+			showClearConfirmModal();
 		} else {
-			alert("No results to clear!");
+			showAlert("No results to clear!");
 		}
 	});
 
