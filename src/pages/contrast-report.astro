@@ -422,10 +422,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 		// Send screen reader message
 		document.getElementById("sr-announcement").textContent =
-			"Colour pair added";
-		setTimeout(() => {
-			document.getElementById("component").focus();
-		}, 800);
+			"Colour pair added. Navigate back to add more colour pairs or navigate to the results table.";
+		// setTimeout(() => {
+		// 	document.getElementById("component").focus();
+		// }, 1000);
 		setTimeout(() => {
 			document.getElementById("sr-announcement").textContent = "";
 		}, 3000);
