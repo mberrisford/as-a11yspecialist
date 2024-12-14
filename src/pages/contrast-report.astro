@@ -170,6 +170,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <script is:inline>
 	function deleteRow(button) {
 		const row = button.closest("tr");
+		const component = row.cells[0].textContent.trim();
 		row.remove();
 
 		// Hide results section if no more results
@@ -177,12 +178,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		if (!tbody.hasChildNodes()) {
 			document.getElementById("resultsContainer").style.display = "none";
 		}
+
+		// Announce to screen readers and show toast
+		const announcement = document.getElementById("sr-announcement");
+		announcement.textContent = `${component} removed from results`;
+		showToast(`${component} removed`);
+		setTimeout(() => {
+			announcement.textContent = "";
+		}, 3000);
 	}
 
 	function clearAllResults() {
 		const tbody = document.querySelector("#contrastResults tbody");
+		const count = tbody.childElementCount;
 		tbody.innerHTML = "";
 		document.getElementById("resultsContainer").style.display = "none";
+
+		// Announce to screen readers and show toast
+		const announcement = document.getElementById("sr-announcement");
+		announcement.textContent = `${count} results cleared. Navigate back to the form to add more colour pairs.`;
+		showToast(`${count} results cleared`);
+		setTimeout(() => {
+			announcement.textContent = "";
+		}, 3000);
+
+		// Return focus to the form
+		//document.getElementById("component").focus();
 	}
 
 	function getTableData() {
@@ -246,6 +267,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		if (data.length > 0) {
 			const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
 			downloadJson(data, `contrast-results-${timestamp}.json`);
+			// Announce to screen readers and show toast
+			const announcement = document.getElementById("sr-announcement");
+			announcement.textContent = "Results exported to JSON file";
+			showToast("Results exported to JSON file");
+			setTimeout(() => {
+				announcement.textContent = "";
+			}, 3000);
 		} else {
 			alert("No results to export! Please add some colour pairs first.");
 		}
@@ -266,7 +294,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 					if (Array.isArray(data)) {
 						data.forEach((row) => addRowFromData(row));
 						// Set focus to results heading after successful import
-						document.getElementById("results-section").focus();
+						// document.getElementById("results-section").focus();
+						// Announce to screen readers and show toast
+						const announcement =
+							document.getElementById("sr-announcement");
+						const message = `${data.length} colour pairs imported. Navigate to the results table to review them.`;
+						announcement.textContent = message;
+						showToast(`${data.length} colour pairs imported`);
+						setTimeout(() => {
+							announcement.textContent = "";
+						}, 3000);
 					} else {
 						throw new Error("Invalid data format.");
 					}
@@ -420,12 +457,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		// Reset form and set focus back to component input
 		form.reset();
 
-		// Send screen reader message
-		document.getElementById("sr-announcement").textContent =
-			"Colour pair added. Navigate back to add more colour pairs or navigate to the results table.";
-		// setTimeout(() => {
-		// 	document.getElementById("component").focus();
-		// }, 1000);
+		// Send screen reader message and show toast
+		const message =
+			"Colour pair added. Navigate back to the form to add more colour pairs or navigate forward to the results table.";
+		document.getElementById("sr-announcement").textContent = message;
+		showToast("Colour pair added");
 		setTimeout(() => {
 			document.getElementById("sr-announcement").textContent = "";
 		}, 3000);
@@ -474,9 +510,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		document.body.removeChild(link);
 		URL.revokeObjectURL(url);
 
-		// Announce to screen readers
+		// Announce to screen readers and show toast
 		const announcement = document.getElementById("sr-announcement");
 		announcement.textContent = "CSV file downloaded";
+		showToast("CSV file downloaded");
 		setTimeout(() => {
 			announcement.textContent = "";
 		}, 3000);
@@ -499,14 +536,4 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			document.body.removeChild(toast);
 		}, 7000);
 	}
-
-	form.addEventListener("submit", function (e) {
-		e.preventDefault();
-		// Existing code...
-
-		// Show toast message
-		showToast("Colour pair added");
-
-		// Existing code...
-	});
 </script>
