@@ -6,16 +6,18 @@ const pageTitle = "Site Map";
 // Get all pages
 const pages = await Astro.glob("./*.astro");
 const posts = await Astro.glob("./posts/*.md");
-const tags = [
-  ...new Set(posts.map((post) => post.frontmatter.tags).flat()),
-].sort((a, b) => a.localeCompare(b))
-  .filter(tag => tag !== "draft");
+const tags = [...new Set(
+  posts.filter(post => !post.frontmatter.tags.includes("draft"))
+    .map((post) => post.frontmatter.tags).flat()
+)]
+  .sort((a, b) => a.localeCompare(b))
+  .filter((tag) => tag !== "draft");
 
 // Filter out the sitemap page itself and organize pages
 const mainPages = pages
   .filter((page) => {
     const url = page.url || page.file.split("/pages/")[1].replace(".astro", "");
-    return !url.includes("sitemap") && !url.includes("rss.xml");
+    return !url.includes("sitemap") && !url.includes("rss.xml") && !url.includes("404");
   })
   .map((page) => {
     const filePath = page.file.split("/pages/")[1].replace(".astro", "");

@@ -39,7 +39,9 @@ const sortedPosts = allPosts
       <h2>Tags</h2>
       <ul role="list">
         {
-          Array.from(new Set(allPosts.flatMap((post) => post.frontmatter.tags)))
+          Array.from(new Set(allPosts
+            .filter(post => !post.frontmatter.tags.includes("draft"))
+            .flatMap((post) => post.frontmatter.tags)))
             .filter((tag) => tag !== "draft")
             .map((tag) => (
               <li>
