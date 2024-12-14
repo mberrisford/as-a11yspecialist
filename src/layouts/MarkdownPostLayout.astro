@@ -85,16 +85,7 @@ while ((match = regex.exec(content)) !== null) {
   }
 </BaseLayout>
 
-<script>
-  // Function to generate consistent IDs
-  function generateId(text) {
-    return text
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  }
-
+<script define:vars={{ headings }}>
   // Function to check if an element is scrollable
   function isScrollable(element) {
     return (
@@ -114,11 +105,11 @@ while ((match = regex.exec(content)) !== null) {
 
   // Function to initialize headings
   function initializeHeadings() {
-    // Add IDs and tabindex to h2 headings if they don't have them
-    document.querySelectorAll("h2:not(#TOC)").forEach((heading) => {
-      if (!heading.id) {
-        const id = generateId(heading.textContent);
-        heading.id = id;
+    // Add tabindex to h2 headings if they don't have them
+    document.querySelectorAll("h2:not(#TOC-heading)").forEach((heading, index) => {
+      // Use the pre-generated IDs from the server
+      if (index < headings.length) {
+        heading.id = headings[index].id;
       }
       // Always set tabindex="-1" on content headings
       heading.setAttribute("tabindex", "-1");
