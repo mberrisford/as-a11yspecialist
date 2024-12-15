@@ -175,6 +175,28 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		</article>
 	</dialog>
 
+	<!-- Delete Confirmation Modal -->
+	<dialog
+		id="deleteConfirmModal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="deleteModalTitle"
+		aria-describedby="deleteModalDesc"
+	>
+		<article>
+			<header>
+				<h2 id="deleteModalTitle">Delete Result?</h2>
+			</header>
+			<p id="deleteModalDesc"></p>
+			<footer>
+				<button class="outline" onclick="closeDeleteConfirmModal()"
+					>Cancel</button
+				>
+				<button onclick="confirmDelete()">Delete</button>
+			</footer>
+		</article>
+	</dialog>
+
 	<!-- Alert Modal -->
 	<dialog
 		id="alertModal"
@@ -228,6 +250,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	function confirmClearResults() {
 		closeClearConfirmModal();
 		clearAllResults();
+	}
+
+	let currentDeleteButton = null;
+
+	function showDeleteConfirmModal(button) {
+		currentDeleteButton = button;
+		const row = button.closest("tr");
+		const component = row.cells[0].textContent.trim();
+		document.getElementById("deleteModalDesc").textContent =
+			`Are you sure you want to delete "${component}"?`;
+		document.getElementById("deleteConfirmModal").showModal();
+	}
+
+	function closeDeleteConfirmModal() {
+		document.getElementById("deleteConfirmModal").close();
+	}
+
+	function confirmDelete() {
+		closeDeleteConfirmModal();
+		if (currentDeleteButton) {
+			deleteRow(currentDeleteButton);
+			currentDeleteButton = null;
+		}
 	}
 
 	function deleteRow(button) {
@@ -301,6 +346,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	function addRowFromData(data) {
 		const tbody = document.querySelector("#contrastResults tbody");
 		const row = document.createElement("tr");
+		
+		// Determine classes based on the pass/fail text
+		const aaClass = data.wcagAA === "Pass" ? "pass" : "fail";
+		const aaaClass = data.wcagAAA === "N/A" ? "na" : data.wcagAAA === "Pass" ? "pass" : "fail";
+
 		row.innerHTML = `
 			<td>${data.component}</td>
 			<td>
@@ -313,8 +363,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			</td>
 			<td>${data.elementType}</td>
 			<td>${data.contrastRatio}</td>
-			<td>${data.wcagAA}</td>
-			<td>${data.wcagAAA}</td>
+			<td class="${aaClass}">${data.wcagAA}</td>
+			<td class="${aaaClass}">${data.wcagAAA}</td>
 			<td>
 				<button type="button" data-action="delete">Remove</button>
 			</td>
@@ -385,7 +435,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		.querySelector("#contrastResults")
 		.addEventListener("click", (e) => {
 			if (e.target.matches('button[data-action="delete"]')) {
-				deleteRow(e.target);
+				showDeleteConfirmModal(e.target);
 			}
 		});
 
@@ -501,8 +551,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			</td>
 			<td>${formatElementType(elementType)}</td>
 			<td>${ratio.toFixed(2)}:1</td>
-			<td>${compliance.aa ? "Pass" : "Fail"}</td>
-			<td>${compliance.aaa === "N/A" ? "N/A" : compliance.aaa ? "Pass" : "Fail"}</td>
+			<td class="${compliance.aa ? "pass" : "fail"}">${compliance.aa ? "Pass" : "Fail"}</td>
+			<td class="${compliance.aaa === "N/A" ? "na" : compliance.aaa ? "pass" : "fail"}">${compliance.aaa === "N/A" ? "N/A" : compliance.aaa ? "Pass" : "Fail"}</td>
 			<td>
 				<button type="button" data-action="delete">Remove</button>
 			</td>

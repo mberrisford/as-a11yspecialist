@@ -51,6 +51,19 @@ ul li {
 }
 
 
+.pass::before {
+  content: "✓" / "";
+  padding-right: 0.125rem;
+
+}
+
+.fail::before {
+  content: "✗" / "";
+  padding-right: 0.125rem;
+
+}
+
+
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --pico-primary-underline: var(--pico-primary);
@@ -73,17 +86,6 @@ ul li {
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
-
-  .pass {
-    color: lightgreen;
-  }
-
-  .fail {
-    color: red;
-    text-decoration: wavy underline;
-
-  }
-
 }
 
 @media only screen and (prefers-color-scheme: light) {
