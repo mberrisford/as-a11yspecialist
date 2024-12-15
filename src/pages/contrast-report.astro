@@ -2,13 +2,24 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout pageTitle="Contrast Report Generator (Beta)">
-	<p>
-		<strong
-			>Note: This is a work in progress. Please let me know if you have
-			any issues or suggestions.</strong
-		>
-	</p>
+<BaseLayout pageTitle="Contrast Report Generator (WIP)">
+	<noscript>
+		<article>
+			<p>
+				<strong>JavaScript Required:</strong> This tool requires JavaScript
+				to function. Please enable JavaScript in your browser settings or
+				use a different browser to use this tool.
+			</p>
+		</article>
+	</noscript>
+	<article>
+		<p>
+			<strong
+				>Note: This is a work in progress. Please let me know if you
+				have any issues or suggestions.</strong
+			>
+		</p>
+	</article>
 	<h2 id="">Add Colour Pairs</h2>
 
 	<p id="required-fields-info">
@@ -346,10 +357,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 	function addRowFromData(data) {
 		const tbody = document.querySelector("#contrastResults tbody");
 		const row = document.createElement("tr");
-		
+
 		// Determine classes based on the pass/fail text
 		const aaClass = data.wcagAA === "Pass" ? "pass" : "fail";
-		const aaaClass = data.wcagAAA === "N/A" ? "na" : data.wcagAAA === "Pass" ? "pass" : "fail";
+		const aaaClass =
+			data.wcagAAA === "N/A"
+				? "na"
+				: data.wcagAAA === "Pass"
+					? "pass"
+					: "fail";
 
 		row.innerHTML = `
 			<td>${data.component}</td>
