@@ -370,11 +370,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		row.innerHTML = `
 			<td>${data.component}</td>
 			<td>
-				<span style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.foreground}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
+				<span aria-hidden="true"style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.foreground}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
 				${data.foreground}
 			</td>
 			<td>
-				<span style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.background}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
+				<span aria-hidden="true"style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.background}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
 				${data.background}
 			</td>
 			<td>${data.elementType}</td>

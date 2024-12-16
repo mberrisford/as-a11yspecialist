@@ -54,13 +54,14 @@ ul li {
 .pass::before {
   content: "✓" / "";
   padding-right: 0.125rem;
+  vertical-align: unset;
 
 }
 
 .fail::before {
   content: "✗" / "";
   padding-right: 0.125rem;
-
+  vertical-align: unset;
 }
 
 
@@ -99,14 +100,5 @@ ul li {
     --pico-form-element-border-color: var(--pico-muted-border-color);
   }
 
-  .pass {
-    color: darkgreen;
-    text-decoration: dashed underline;
-    text-underline-offset: 4px;
-  }
 
-  .fail {
-    color: darkred;
-    text-decoration: wavy underline;
-  }
 }
