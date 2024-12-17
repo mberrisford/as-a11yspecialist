@@ -4,7 +4,7 @@ import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   site: 'https://a11yspecialist.netlify.app',
-  output: 'hybrid',
+  output: 'server',
   adapter: netlify(),
   integrations: [
     sitemap(),
