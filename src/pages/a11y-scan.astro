@@ -92,83 +92,138 @@ if (Astro.request.method === "POST") {
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    
-
-        <p>
-        Enter a URL to scan for accessibility issues based on WCAG 2.2 Level AA standards and best practices.
-        This automated tool should not replace comprehensive
-        manual testing or a full accessibility audit. Use it as a starting point to
-        identify potential areas for improvement.
+    <p>
+    Enter a URL to scan for accessibility issues based on WCAG 2.2 Level AA standards and best practices.
+    This automated tool should not replace comprehensive
+    manual testing or a full accessibility audit. Use it as a starting point to
+    identify potential areas for improvement.
+    </p>
+    <form method="POST">
+        <label for="url">URL:</label>
+        <input
+            type="url"
+            id="url"
+            name="url"
+            required
+            pattern="https?://.*"
+            value={url || ""}
+            aria-describedby="url-help"
+        />
+        <p id="url-help">
+            Include the full URL. For example: https://hello.com.
         </p>
-        <form method="POST">
-            <label for="url">URL:</label>
-            <input
-                type="url"
-                id="url"
-                name="url"
-                required
-                pattern="https?://.*"
-                value={url || ""}
-                aria-describedby="url-help"
-            />
-            <p id="url-help">
-                Include the full URL. For example: https://hello.com.
-            </p>
-            <button type="submit"> Scan URL </button>
-        </form>
+        <button type="submit"> Scan URL </button>
+    </form>
 
-        {
-            scanError && (
-                <div>
-                    <strong>Error:</strong> {scanError}
-                </div>
-            )
-        }
+    {
+        scanError && (
+            <div>
+                <strong>Error:</strong> {scanError}
+            </div>
+        )
+    }
 
-        {
-            scanResults && (
-                <div>
+    {
+        scanResults && (
+            <div>
+                <div class="results-header">
                     <h2>Scan Results for {url}</h2>
                     
-                    {scanResults.violations.length > 0 && (
-                        <p>
-                            <strong>
-                                Found
-                                {scanResults.violations.length} accessibility
-                                {scanResults.violations.length === 1
-                                    ? " violation"
-                                    : " violations"}!
-                            </strong>
-                        </p>
-                        <div class="overflow-auto">
-                            <table>
-                                <thead>
+                </div>
+                {scanResults.violations.length > 0 && (
+                    <p>
+                        <strong>
+                            Found
+                            {scanResults.violations.length} accessibility
+                            {scanResults.violations.length === 1
+                                ? " violation"
+                                : " violations"}!
+                        </strong>
+                    </p>
+                    <div class="overflow-auto">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Impact</th>
+                                    <th>Description</th>
+                                    <th>Help</th>
+                                    <th>Elements</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {scanResults.violations.map((violation) => (
                                     <tr>
-                                        <th>Impact</th>
-                                        <th>Description</th>
-                                        <th>Help</th>
-                                        <th>Elements</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {scanResults.violations.map((violation) => (
-                                        <tr>
-                                            <td>{violation.impact || "Unknown"}</td>
-                                            <td>
-                                                {violation.description ||
-                                                    "No description"}
-                                            </td>
-                                            <td>
-                                                <a
-                                                    href={violation.helpUrl || "#"}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                        <td>{violation.impact || "Unknown"}</td>
+                                        <td>
+                                            {violation.description ||
+                                                "No description"}
+                                        </td>
+                                        <td>
+                                            <a
+                                                href={violation.helpUrl || "#"}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {violation.help ||
+                                                    "No help available"}
+                                                <span class="sr-only">
+                                                    {" "}
+                                                    (opens in new tab)
+                                                </span>
+                                                <svg
+                                                    class="external-link-icon"
+                                                    aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    focusable="false"
+                                                    aria-hidden="true"
+                                                    role="img"
                                                 >
-                                                    {violation.help ||
-                                                        "No help available"}
+                                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                                    <polyline points="15 3 21 3 21 9" />
+                                                    <line
+                                                        x1="10"
+                                                        y1="14"
+                                                        x2="21"
+                                                        y2="3"
+                                                    />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <form
+                                                method="POST"
+                                                action="/violation-details"
+                                                target="_blank"
+                                                style="display: inline;"
+                                            >
+                                                <input
+                                                    type="hidden"
+                                                    name="data"
+                                                    value={JSON.stringify(
+                                                        violation,
+                                                    )}
+                                                />
+                                                <input
+                                                    type="hidden"
+                                                    name="url"
+                                                    value={url}
+                                                />
+                                                <button type="submit">
+                                                    {
+                                                        (violation.nodes || [])
+                                                            .length
+                                                    }{" "}
+                                                    affected {violation.nodes.length === 1 ? 'element' : 'elements'}
                                                     <span class="sr-only">
                                                         {" "}
-                                                        (opens in new tab)
+                                                        - View details (opens in
+                                                        new tab)
                                                     </span>
                                                     <svg
                                                         class="external-link-icon"
@@ -193,81 +248,45 @@ if (Astro.request.method === "POST") {
                                                             y2="3"
                                                         />
                                                     </svg>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <form
-                                                    method="POST"
-                                                    action="/violation-details"
-                                                    target="_blank"
-                                                    style="display: inline;"
-                                                >
-                                                    <input
-                                                        type="hidden"
-                                                        name="data"
-                                                        value={JSON.stringify(
-                                                            violation,
-                                                        )}
-                                                    />
-                                                    <input
-                                                        type="hidden"
-                                                        name="url"
-                                                        value={url}
-                                                    />
-                                                    <button type="submit">
-                                                        {
-                                                            (violation.nodes || [])
-                                                                .length
-                                                        }{" "}
-                                                        affected {violation.nodes.length === 1 ? 'element' : 'elements'}
-                                                        <span class="sr-only">
-                                                            {" "}
-                                                            - View details (opens in
-                                                            new tab)
-                                                        </span>
-                                                        <svg
-                                                            class="external-link-icon"
-                                                            aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            stroke-width="2"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            focusable="false"
-                                                            aria-hidden="true"
-                                                            role="img"
-                                                        >
-                                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                                                            <polyline points="15 3 21 3 21 9" />
-                                                            <line
-                                                                x1="10"
-                                                                y1="14"
-                                                                x2="21"
-                                                                y2="3"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-                    {scanResults.violations.length === 0 && (
-                        <p>
-                            <strong>No accessibility violations found! 🎉</strong>
-                        </p>
-                    )}
-                    <p><b>Scan Engine:</b> {scanResults && <span>axe-core version {scanResults.testEngine.version}</span>}</p>
-                </div>
-            )
-        }
-    
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button 
+                        id="exportCsv" 
+                        data-results={JSON.stringify(scanResults)}
+                        data-url={url}
+                    >
+                        Download Report (.CSV)
+                    </button>
+                )}
+                {scanResults.violations.length === 0 && (
+                    <p>
+                        <strong>No accessibility violations found! 🎉</strong>
+                    </p>
+                )}
+                <p><b>Scan Engine:</b> {scanResults && <span>axe-core version {scanResults.testEngine.version}</span>}</p>
+            </div>
+        )
+    }
 </BaseLayout>
+
+<script>
+    import { exportToCsv } from '../scripts/exportCsv';
+
+    const exportButton = document.getElementById('exportCsv');
+    if (exportButton) {
+        exportButton.addEventListener('click', () => {
+            const results = JSON.parse(exportButton.dataset.results || '{}');
+            const url = exportButton.dataset.url || '';
+            exportToCsv(results, url);
+        });
+    }
+</script>
 
 <style>
     input[type="url"] {
