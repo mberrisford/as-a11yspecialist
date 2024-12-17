@@ -5,7 +5,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout pageTitle="A11y Testing Tools">
 	<p>Here are some of the tools I use regularly to test accessibility.</p>
 	<section class="tools-section">
-		<h2>Browser Extensions</h2>
+		<h2>Tools to Check Accessibility</h2>
 		<div class="tools-grid">
 			<article class="tool-card">
 				<h3>Accessibility Insights for Web</h3>
@@ -96,6 +96,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 						class="button outline"
 					>
 						ANDI Guide
+					</a>
+				</div>
+			</article>
+			<article class="tool-card">
+				<h3>Scan a Web Page</h3>
+				<p>
+					My own tool to scan a web page for accessibility issues. It
+					uses axe-core to perform the tests and reports the results.
+					The results can be saved as a CSV file for easy import into
+					other tools like Excel.
+				</p>
+				<div class="tool-links">
+					<a href="/a11y-scan" class="button">
+						Try scanning your web pages
 					</a>
 				</div>
 			</article>

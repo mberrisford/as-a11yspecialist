@@ -26,3 +26,6 @@ pnpm-debug.log*
 .vscode/
 backup/
 evaluatory-results/
+
+# windsurf rules
+.windsurfrules
