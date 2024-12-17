@@ -55,6 +55,21 @@ if (Astro.request.method === "POST") {
             .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa","best-practice"])
             .analyze();
 
+        // Sort violations by impact
+        if (scanResults && scanResults.violations) {
+            const impactOrder = {
+                critical: 0,
+                serious: 1,
+                moderate: 2,
+                minor: 3
+            };
+            scanResults.violations.sort((a, b) => {
+                const impactA = impactOrder[a.impact] ?? 4;
+                const impactB = impactOrder[b.impact] ?? 4;
+                return impactA - impactB;
+            });
+        }
+
         await page.close();
         await context.close();
         await browser.close();
