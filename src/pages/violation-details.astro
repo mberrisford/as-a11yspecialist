@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Violation Details";
+
+let violation = null;
+let url = null;
+
+if (Astro.request.method === "GET") {
+    const data = Astro.url.searchParams.get("data");
+    url = Astro.url.searchParams.get("url");
+
+    if (data) {
+        try {
+            violation = JSON.parse(decodeURIComponent(data));
+        } catch (e) {
+            console.error("Failed to parse violation data:", e);
+        }
+    }
+} else if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    const data = formData.get("data")?.toString();
+    url = formData.get("url")?.toString();
+
+    if (data) {
+        try {
+            violation = JSON.parse(data);
+        } catch (e) {
+            console.error("Failed to parse violation data:", e);
+        }
+    }
+}
+---
+
+<BaseLayout pageTitle={pageTitle}>
+        {
+            violation ? (
+                <>
+                <article>
+                    <h2>
+                        <a href={violation.helpUrl} target="_blank" rel="noopener noreferrer">
+                            {violation.help}
+                            <span class="sr-only"> (opens in new tab)</span>
+
+                        </a>
+                    </h2>
+                        <p><b>Description:</b> {violation.description}</p>
+                        <p><b>Impact Level:</b> {violation.impact.charAt(0).toUpperCase() + violation.impact.slice(1)}</p>
+                        <p><b>Tags:</b> {violation.tags.join(", ")}</p>
+                        <p><b>URL:</b> <a href={url} target="_blank" rel="noopener noreferrer">{url}
+                                <span class="sr-only"> (opens in new tab)</span>
+                            </a>
+                        </p>
+                    </article>
+                    <h3>Affected Elements ({violation.nodes.length})</h3>
+                    
+
+                    {violation.nodes.map((node, index) => (
+                        
+                        <h4 id={`element-${index + 1}`}>Element {index + 1}</h4>
+                        <div class="overflow-auto">
+                            <table aria-labelledby={`element-${index + 1}`}>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">HTML Snippet</th>
+                                        <td>
+                                            <code>{node.html}</code>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Target</th>
+                                        <td>
+                                            <code>{node.target.join(" ")}</code>
+                                        </td>
+                                    </tr>
+                                    {node.any.length > 0 && (
+                                        <tr>
+                                            <th scope="row">
+                                                Potential Reason(s)
+                                            </th>
+                                            <td>
+                                                <ul>
+                                                    {node.any.map((fix) => (
+                                                        <li>{fix.message}</li>
+                                                    ))}
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    )}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    ))}
+                </>
+            ) : (
+                <p>
+                    No violation data provided.{" "}
+                    <a href="/a11y-scan">Return to scanner</a>
+                </p>
+            )
+        }
+</BaseLayout>
+
+<style>
+    th {
+        text-align: left;
+        min-width: 10rem;
+        font-weight: bold;
+    }
+
+    th,
+    td {
+        vertical-align: top;
+    }
+
+    ul {
+        margin: 0;
+        padding-left: 1.5rem;
+    }
+
+    li {
+        margin: 0.5rem 0;
+    }
+
+    h4 {
+        margin-bottom: 0.5rem;
+    }
+</style>
