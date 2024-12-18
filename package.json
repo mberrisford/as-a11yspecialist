@@ -13,7 +13,6 @@
     "scan": "npm run scan-light && npm run scan-dark"
   },
   "dependencies": {
-    "@astrojs/netlify": "^4.1.1",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
     "@axe-core/playwright": "^4.10.1",
