@@ -3,7 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://a11yspecialist.netlify.app',
-  output: 'server',
   integrations: [
     sitemap(),
   ],
