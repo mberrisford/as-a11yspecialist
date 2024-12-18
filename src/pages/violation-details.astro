@@ -46,7 +46,7 @@ if (Astro.request.method === "GET") {
                     </h2>
                         <p><b>Description:</b> {violation.description}</p>
                         <p><b>Impact Level:</b> {violation.impact.charAt(0).toUpperCase() + violation.impact.slice(1)}</p>
-                        <p><b>WCAG Tags:</b> {violation.tags.filter(tag => tag.includes('wcag') || tag === 'best-practice').join(", ")}</p>
+                        <p><b>Tags:</b> {violation.tags.join(", ")}</p>
                         <p><b>URL:</b> <a href={url} target="_blank" rel="noopener noreferrer">{url}
                                 <span class="sr-only"> (opens in new tab)</span>
                             </a>
