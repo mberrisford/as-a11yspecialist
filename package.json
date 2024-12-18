@@ -10,8 +10,7 @@
     "astro": "astro",
     "scan-light": "evaluatory --config evaluatory.light.json5 --sitemap https://accessibilityspecialist.ca/sitemap-0.xml --color-scheme light",
     "scan-dark": "evaluatory --config evaluatory.dark.json5 --sitemap https://accessibilityspecialist.ca/sitemap-0.xml --color-scheme dark",
-    "scan": "npm run scan-light && npm run scan-dark",
-    "postinstall": "npx playwright install -y"
+    "scan": "npm run scan-light && npm run scan-dark"
   },
   "dependencies": {
     "@astrojs/netlify": "^4.1.1",
