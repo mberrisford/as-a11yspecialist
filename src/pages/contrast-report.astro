@@ -1,373 +1,372 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ShareButton from "../components/ShareButton.astro";
 ---
 
 <BaseLayout pageTitle="Contrast Report Generator (WIP)">
-	<noscript>
-		<article>
-			<p>
-				<strong>JavaScript Required:</strong> This tool requires JavaScript
-				to function. Please enable JavaScript in your browser settings or
-				use a different browser to use this tool.
-			</p>
-		</article>
-	</noscript>
-	<article>
-		<p>
-			<strong
-				>Note: This is a work in progress. Please let me know if you
-				have any issues or suggestions.</strong
-			>
-		</p>
-	</article>
-	<h2 id="">Add Colour Pairs</h2>
+  <noscript>
+    <article>
+      <p>
+        <strong>JavaScript Required:</strong> This tool requires JavaScript to function.
+        Please enable JavaScript in your browser settings or use a different browser
+        to use this tool.
+      </p>
+    </article>
+  </noscript>
+  <article>
+    <p>
+      <strong
+        >Note: This is a work in progress. Please let me know if you have any
+        issues or suggestions.</strong
+      >
+    </p>
+  </article>
+  <h2 id="input-section-heading">Add Colour Pairs</h2>
 
-	<p id="required-fields-info">
-		All fields are required. Use hex colours only. For example: <code
-			>#FFF000</code
-		>. After adding a colour pair, results will be added in the report below
-		automatically.
-	</p>
-	<form id="contrastForm" aria-labelledby="input-section">
-		<div class="grid">
-			<div>
-				<label for="component">Component:</label>
-				<input
-					type="text"
-					id="component"
-					name="component"
-					required
-					aria-describedby="component-help"
-				/>
-				<small id="component-help"
-					>Enter a short name of the component. For example: "Primary
-					Button".</small
-				>
-			</div>
-			<div>
-				<label for="elementType">Element Type:</label>
-				<select
-					id="elementType"
-					name="elementType"
-					required
-					aria-describedby="element-type-help"
-				>
-					<option value="regularText">Regular Text</option>
-					<option value="largeText"
-						>Large Text (min. 18pt/24px or 14pt/18.5px bold)</option
-					>
-					<option value="uiComponent">UI Component</option>
-					<option value="graphicalObject">Graphical Object</option>
-				</select>
-				<small id="element-type-help"
-					>Choose the type of element you're adding. For example: "UI
-					Component" for a button's focus indicator.</small
-				>
-			</div>
-		</div>
-		<div class="grid">
-			<div>
-				<label for="foreground">Foreground Colour:</label>
-				<input
-					type="text"
-					id="foreground"
-					name="foreground"
-					pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
-					required
-					spellcheck="false"
-					aria-describedby="foreground-help"
-				/>
-				<small id="foreground-help"
-					>Use hex colours only. For example: <code>#FFF000</code
-					>.</small
-				>
-			</div>
-			<div>
-				<label for="background">Background Colour:</label>
-				<input
-					type="text"
-					id="background"
-					name="background"
-					pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
-					required
-					spellcheck="false"
-					aria-describedby="background-help"
-				/>
-				<small id="background-help"
-					>Use hex colours only. For example: <code>#FFF000</code
-					>.</small
-				>
-			</div>
-		</div>
-		<div class="grid">
-			<button type="submit">Add Colour Pair</button>
-			<input
-				type="file"
-				id="importResults"
-				accept=".json"
-				aria-label="Import results from JSON file"
-				style="display: none;"
-			/>
+  <p id="required-fields-info">
+    All fields are required. Use hex colours only. For example: <code
+      >#FFF000</code
+    >. After adding a colour pair, results will be added in the report below
+    automatically.
+  </p>
+  <form id="contrastForm" aria-labelledby="input-section-heading">
+    <div class="grid">
+      <div>
+        <label for="component">Component:</label>
+        <input
+          type="text"
+          id="component"
+          name="component"
+          required
+          aria-describedby="component-help"
+        />
+        <small id="component-help"
+          >Enter a short name of the component. For example: "Primary Button".</small
+        >
+      </div>
+      <div>
+        <label for="elementType">Element Type:</label>
+        <select
+          id="elementType"
+          name="elementType"
+          required
+          aria-describedby="element-type-help"
+        >
+          <option value="regularText">Regular Text</option>
+          <option value="largeText"
+            >Large Text (min. 18pt/24px or 14pt/18.5px bold)</option
+          >
+          <option value="uiComponent">UI Component</option>
+          <option value="graphicalObject">Graphical Object</option>
+        </select>
+        <small id="element-type-help"
+          >Choose the type of element you're adding. For example: "UI Component"
+          for a button's focus indicator.</small
+        >
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <label for="foreground">Foreground Colour:</label>
+        <input
+          type="text"
+          id="foreground"
+          name="foreground"
+          pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+          required
+          spellcheck="false"
+          aria-describedby="foreground-help"
+        />
+        <small id="foreground-help"
+          >Use hex colours only. For example: <code>#FFF000</code>.</small
+        >
+      </div>
+      <div>
+        <label for="background">Background Colour:</label>
+        <input
+          type="text"
+          id="background"
+          name="background"
+          pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+          required
+          spellcheck="false"
+          aria-describedby="background-help"
+        />
+        <small id="background-help"
+          >Use hex colours only. For example: <code>#FFF000</code>.</small
+        >
+      </div>
+    </div>
+    <div class="grid">
+      <button type="submit">Add Colour Pair</button>
+      <input
+        type="file"
+        id="importResults"
+        accept=".json"
+        aria-label="Import results from JSON file"
+        style="display: none;"
+      />
 
-			<button
-				class="outline"
-				type="button"
-				id="exportResults"
-				aria-label="Export results to JSON file"
-				>Export Results (.json)</button
-			>
-			<button
-				class="outline"
-				type="button"
-				id="importButton"
-				aria-label="Import results from JSON file"
-				>Import Results (.json)</button
-			>
-			<button class="outline" type="button" id="clearResults"
-				>Clear Results</button
-			>
-		</div>
-	</form>
+      <button
+        class="outline"
+        type="button"
+        id="exportResults"
+        aria-label="Export results to JSON file">Export Results (.json)</button
+      >
+      <button
+        class="outline"
+        type="button"
+        id="importButton"
+        aria-label="Import results from JSON file"
+        >Import Results (.json)</button
+      >
+      <button class="outline" type="button" id="clearResults"
+        >Clear Results</button
+      >
+    </div>
+  </form>
 
-	<div id="resultsContainer" style="display: none;">
-		<hr aria-hidden="true" />
-		<h2 id="results-section" tabindex="-1">Colour Contrast Report</h2>
-		<div class="overflow-auto">
-			<table
-				id="contrastResults"
-				aria-labelledby="results-section"
-				style="vertical-align: middle;"
-			>
-				<thead>
-					<tr>
-						<th scope="col">Component</th>
-						<th scope="col">Foreground</th>
-						<th scope="col">Background</th>
-						<th scope="col">Element Type</th>
-						<th scope="col">Contrast Ratio</th>
-						<th scope="col">WCAG AA</th>
-						<th scope="col">WCAG AAA</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody> </tbody>
-			</table>
-		</div>
+  <div id="resultsContainer" style="display: none;">
+    <hr aria-hidden="true" />
+    <h2 id="results-section" tabindex="-1">Colour Contrast Report</h2>
+    <div class="overflow-auto">
+      <table
+        id="contrastResults"
+        aria-labelledby="results-section"
+        style="vertical-align: middle;"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Component</th>
+            <th scope="col">Foreground</th>
+            <th scope="col">Background</th>
+            <th scope="col">Element Type</th>
+            <th scope="col">Contrast Ratio</th>
+            <th scope="col">WCAG AA</th>
+            <th scope="col">WCAG AAA</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody> </tbody>
+      </table>
+    </div>
 
-		<button type="button" id="saveAsCsvButton" onclick="saveTableAsCsv()">
-			Save as CSV
-		</button>
-	</div>
-	<div role="status" class="sr-only" id="sr-announcement" aria-live="polite">
-	</div>
+    <button type="button" id="saveAsCsvButton" onclick="saveTableAsCsv()">
+      Save as CSV
+    </button>
+  </div>
+  <p>
+    <ShareButton buttonText="Share this tool" />
+    <div role="status" class="sr-only" id="sr-announcement" aria-live="polite">
+    </div>
 
-	<!-- Clear Results Confirmation Modal -->
-	<dialog
-		id="clearConfirmModal"
-		role="dialog"
-		aria-modal="true"
-		aria-labelledby="clearModalTitle"
-		aria-describedby="clearModalDesc"
-	>
-		<article>
-			<header>
-				<h2 id="clearModalTitle">Clear All Results?</h2>
-			</header>
-			<p id="clearModalDesc">
-				Are you sure you want to clear all results? Consider exporting
-				your results first.
-			</p>
-			<footer>
-				<button class="outline" onclick="closeClearConfirmModal()"
-					>Cancel</button
-				>
-				<button onclick="confirmClearResults()">Clear All</button>
-			</footer>
-		</article>
-	</dialog>
+    <!-- Clear Results Confirmation Modal -->
+    <dialog
+      id="clearConfirmModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="clearModalTitle"
+      aria-describedby="clearModalDesc"
+    >
+      <article>
+        <header>
+          <h2 id="clearModalTitle">Clear All Results?</h2>
+        </header>
+        <p id="clearModalDesc">
+          Are you sure you want to clear all results? Consider exporting your
+          results first.
+        </p>
+        <footer>
+          <button class="outline" onclick="closeClearConfirmModal()"
+            >Cancel</button
+          >
+          <button onclick="confirmClearResults()">Clear All</button>
+        </footer>
+      </article>
+    </dialog>
 
-	<!-- Delete Confirmation Modal -->
-	<dialog
-		id="deleteConfirmModal"
-		role="dialog"
-		aria-modal="true"
-		aria-labelledby="deleteModalTitle"
-		aria-describedby="deleteModalDesc"
-	>
-		<article>
-			<header>
-				<h2 id="deleteModalTitle">Delete Result?</h2>
-			</header>
-			<p id="deleteModalDesc"></p>
-			<footer>
-				<button class="outline" onclick="closeDeleteConfirmModal()"
-					>Cancel</button
-				>
-				<button onclick="confirmDelete()">Delete</button>
-			</footer>
-		</article>
-	</dialog>
+    <!-- Delete Confirmation Modal -->
+    <dialog
+      id="deleteConfirmModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="deleteModalTitle"
+      aria-describedby="deleteModalDesc"
+    >
+      <article>
+        <header>
+          <h2 id="deleteModalTitle">Delete Result?</h2>
+        </header>
+        <p id="deleteModalDesc"></p>
+        <footer>
+          <button class="outline" onclick="closeDeleteConfirmModal()"
+            >Cancel</button
+          >
+          <button onclick="confirmDelete()">Delete</button>
+        </footer>
+      </article>
+    </dialog>
 
-	<!-- Alert Modal -->
-	<dialog
-		id="alertModal"
-		role="dialog"
-		aria-modal="true"
-		aria-labelledby="alertModalTitle"
-		aria-describedby="alertMessage"
-	>
-		<article>
-			<header>
-				<h2 id="alertModalTitle">Alert</h2>
-			</header>
-			<p id="alertMessage"></p>
-			<footer>
-				<button onclick="closeAlertModal()">OK</button>
-			</footer>
-		</article>
-	</dialog>
-</BaseLayout>
+    <!-- Alert Modal -->
+    <dialog
+      id="alertModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="alertModalTitle"
+      aria-describedby="alertMessage"
+    >
+      <article>
+        <header>
+          <h2 id="alertModalTitle">Alert</h2>
+        </header>
+        <p id="alertMessage"></p>
+        <footer>
+          <button onclick="closeAlertModal()">OK</button>
+        </footer>
+      </article>
+    </dialog>
+  </p>
 
-<style>
-	h2:focus,
-	h2.focus-visible {
-		outline: none;
-		box-shadow: 0 0 2px var(--pico-outline-width) var(--pico-primary-focus);
-	}
-	label {
-		font-weight: bold;
-	}
-</style>
+  <style>
+    h2:focus,
+    h2.focus-visible {
+      outline: none;
+      box-shadow: 0 0 2px var(--pico-outline-width) var(--pico-primary-focus);
+    }
+    label {
+      font-weight: bold;
+    }
+  </style>
 
-<script is:inline>
-	// Modal handling functions
-	function showAlert(message) {
-		document.getElementById("alertMessage").textContent = message;
-		document.getElementById("alertModal").showModal();
-	}
+  <script is:inline>
+    // Modal handling functions
+    function showAlert(message) {
+      document.getElementById("alertMessage").textContent = message;
+      document.getElementById("alertModal").showModal();
+    }
 
-	function closeAlertModal() {
-		document.getElementById("alertModal").close();
-	}
+    function closeAlertModal() {
+      document.getElementById("alertModal").close();
+    }
 
-	function showClearConfirmModal() {
-		document.getElementById("clearConfirmModal").showModal();
-	}
+    function showClearConfirmModal() {
+      document.getElementById("clearConfirmModal").showModal();
+    }
 
-	function closeClearConfirmModal() {
-		document.getElementById("clearConfirmModal").close();
-	}
+    function closeClearConfirmModal() {
+      document.getElementById("clearConfirmModal").close();
+    }
 
-	function confirmClearResults() {
-		closeClearConfirmModal();
-		clearAllResults();
-	}
+    function confirmClearResults() {
+      closeClearConfirmModal();
+      clearAllResults();
+    }
 
-	let currentDeleteButton = null;
+    let currentDeleteButton = null;
 
-	function showDeleteConfirmModal(button) {
-		currentDeleteButton = button;
-		const row = button.closest("tr");
-		const component = row.cells[0].textContent.trim();
-		document.getElementById("deleteModalDesc").textContent =
-			`Are you sure you want to delete "${component}"?`;
-		document.getElementById("deleteConfirmModal").showModal();
-	}
+    function showDeleteConfirmModal(button) {
+      currentDeleteButton = button;
+      const row = button.closest("tr");
+      const component = row.cells[0].textContent.trim();
+      document.getElementById("deleteModalDesc").textContent =
+        `Are you sure you want to delete "${component}"?`;
+      document.getElementById("deleteConfirmModal").showModal();
+    }
 
-	function closeDeleteConfirmModal() {
-		document.getElementById("deleteConfirmModal").close();
-	}
+    function closeDeleteConfirmModal() {
+      document.getElementById("deleteConfirmModal").close();
+    }
 
-	function confirmDelete() {
-		closeDeleteConfirmModal();
-		if (currentDeleteButton) {
-			deleteRow(currentDeleteButton);
-			currentDeleteButton = null;
-		}
-	}
+    function confirmDelete() {
+      closeDeleteConfirmModal();
+      if (currentDeleteButton) {
+        deleteRow(currentDeleteButton);
+        currentDeleteButton = null;
+      }
+    }
 
-	function deleteRow(button) {
-		const row = button.closest("tr");
-		const component = row.cells[0].textContent.trim();
-		row.remove();
+    function deleteRow(button) {
+      const row = button.closest("tr");
+      const component = row.cells[0].textContent.trim();
+      row.remove();
 
-		// Hide results section if no more results
-		const tbody = document.querySelector("#contrastResults tbody");
-		if (!tbody.hasChildNodes()) {
-			document.getElementById("resultsContainer").style.display = "none";
-		}
+      // Hide results section if no more results
+      const tbody = document.querySelector("#contrastResults tbody");
+      if (!tbody.hasChildNodes()) {
+        document.getElementById("resultsContainer").style.display = "none";
+      }
 
-		// Announce to screen readers and show toast
-		const announcement = document.getElementById("sr-announcement");
-		announcement.textContent = `${component} removed from results`;
-		showToast(`${component} removed`);
-		setTimeout(() => {
-			announcement.textContent = "";
-		}, 3000);
-	}
+      // Announce to screen readers and show toast
+      const announcement = document.getElementById("sr-announcement");
+      announcement.textContent = `${component} removed from results`;
+      showToast(`${component} removed`);
+      setTimeout(() => {
+        announcement.textContent = "";
+      }, 3000);
+    }
 
-	function clearAllResults() {
-		const tbody = document.querySelector("#contrastResults tbody");
-		const count = tbody.childElementCount;
-		tbody.innerHTML = "";
-		document.getElementById("resultsContainer").style.display = "none";
+    function clearAllResults() {
+      const tbody = document.querySelector("#contrastResults tbody");
+      const count = tbody.childElementCount;
+      tbody.innerHTML = "";
+      document.getElementById("resultsContainer").style.display = "none";
 
-		// Announce to screen readers and show toast
-		const announcement = document.getElementById("sr-announcement");
-		announcement.textContent = `${count} results cleared. Navigate back to the form to add more colour pairs.`;
-		showToast(`${count} results cleared`);
-		setTimeout(() => {
-			announcement.textContent = "";
-		}, 3000);
+      // Announce to screen readers and show toast
+      const announcement = document.getElementById("sr-announcement");
+      announcement.textContent = `${count} results cleared. Navigate back to the form to add more colour pairs.`;
+      showToast(`${count} results cleared`);
+      setTimeout(() => {
+        announcement.textContent = "";
+      }, 3000);
 
-		// Return focus to the form
-		//document.getElementById("component").focus();
-	}
+      // Return focus to the form
+      //document.getElementById("component").focus();
+    }
 
-	function getTableData() {
-		const rows = document.querySelectorAll("#contrastResults tbody tr");
-		return Array.from(rows).map((row) => {
-			const cells = row.querySelectorAll("td");
-			return {
-				component: cells[0].textContent.trim(),
-				foreground: cells[1].textContent.trim(),
-				background: cells[2].textContent.trim(),
-				elementType: cells[3].textContent.trim(),
-				contrastRatio: cells[4].textContent.trim(),
-				wcagAA: cells[5].textContent.trim(),
-				wcagAAA: cells[6].textContent.trim(),
-			};
-		});
-	}
+    function getTableData() {
+      const rows = document.querySelectorAll("#contrastResults tbody tr");
+      return Array.from(rows).map((row) => {
+        const cells = row.querySelectorAll("td");
+        return {
+          component: cells[0].textContent.trim(),
+          foreground: cells[1].textContent.trim(),
+          background: cells[2].textContent.trim(),
+          elementType: cells[3].textContent.trim(),
+          contrastRatio: cells[4].textContent.trim(),
+          wcagAA: cells[5].textContent.trim(),
+          wcagAAA: cells[6].textContent.trim(),
+        };
+      });
+    }
 
-	function downloadJson(data, filename) {
-		const blob = new Blob([JSON.stringify(data, null, 2)], {
-			type: "application/json",
-		});
-		const url = URL.createObjectURL(blob);
-		const link = document.createElement("a");
-		link.href = url;
-		link.download = filename;
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
-		URL.revokeObjectURL(url);
-	}
+    function downloadJson(data, filename) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
 
-	function addRowFromData(data) {
-		const tbody = document.querySelector("#contrastResults tbody");
-		const row = document.createElement("tr");
+    function addRowFromData(data) {
+      const tbody = document.querySelector("#contrastResults tbody");
+      const row = document.createElement("tr");
 
-		// Determine classes based on the pass/fail text
-		const aaClass = data.wcagAA === "Pass" ? "pass" : "fail";
-		const aaaClass =
-			data.wcagAAA === "N/A"
-				? "na"
-				: data.wcagAAA === "Pass"
-					? "pass"
-					: "fail";
+      // Determine classes based on the pass/fail text
+      const aaClass = data.wcagAA === "Pass" ? "pass" : "fail";
+      const aaaClass =
+        data.wcagAAA === "N/A"
+          ? "na"
+          : data.wcagAAA === "Pass"
+            ? "pass"
+            : "fail";
 
-		row.innerHTML = `
+      row.innerHTML = `
 			<td>${data.component}</td>
 			<td>
 				<span aria-hidden="true"style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.foreground}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
@@ -382,180 +381,175 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			<td class="${aaClass}">${data.wcagAA}</td>
 			<td class="${aaaClass}">${data.wcagAAA}</td>
 			<td>
-				<button type="button" data-action="delete">Remove</button>
+				<button type="button" class="table-button" data-action="delete">Remove</button>
 			</td>
 		`;
-		tbody.appendChild(row);
-		document.getElementById("resultsContainer").style.display = "block";
-	}
+      tbody.appendChild(row);
+      document.getElementById("resultsContainer").style.display = "block";
+    }
 
-	// Export functionality
-	document.getElementById("exportResults").addEventListener("click", () => {
-		const data = getTableData();
-		if (data.length > 0) {
-			const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-			downloadJson(data, `contrast-results-${timestamp}.json`);
-			// Announce to screen readers and show toast
-			const announcement = document.getElementById("sr-announcement");
-			announcement.textContent = "Results exported to JSON file";
-			showToast("Results exported to JSON file");
-			setTimeout(() => {
-				announcement.textContent = "";
-			}, 3000);
-		} else {
-			showAlert(
-				"No results to export! Please add some colour pairs first.",
-			);
-		}
-	});
+    // Export functionality
+    document.getElementById("exportResults").addEventListener("click", () => {
+      const data = getTableData();
+      if (data.length > 0) {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+        downloadJson(data, `contrast-results-${timestamp}.json`);
+        // Announce to screen readers and show toast
+        const announcement = document.getElementById("sr-announcement");
+        announcement.textContent = "Results exported to JSON file";
+        showToast("Results exported to JSON file");
+        setTimeout(() => {
+          announcement.textContent = "";
+        }, 3000);
+      } else {
+        showAlert("No results to export! Please add some colour pairs first.");
+      }
+    });
 
-	// Import functionality
-	document.getElementById("importButton").addEventListener("click", () => {
-		document.getElementById("importResults").click();
-	});
+    // Import functionality
+    document.getElementById("importButton").addEventListener("click", () => {
+      document.getElementById("importResults").click();
+    });
 
-	document.getElementById("importResults").addEventListener("change", (e) => {
-		const file = e.target.files[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onload = (event) => {
-				try {
-					const data = JSON.parse(event.target.result);
-					if (Array.isArray(data)) {
-						data.forEach((row) => addRowFromData(row));
-						// Set focus to results heading after successful import
-						// document.getElementById("results-section").focus();
-						// Announce to screen readers and show toast
-						const announcement =
-							document.getElementById("sr-announcement");
-						const message = `${data.length} colour pairs imported. Navigate to the results table to review them.`;
-						announcement.textContent = message;
-						showToast(`${data.length} colour pairs imported`);
-						setTimeout(() => {
-							announcement.textContent = "";
-						}, 3000);
-					} else {
-						throw new Error("Invalid data format.");
-					}
-				} catch (error) {
-					alert("Error importing file: " + error.message);
-				}
-			};
-			reader.readAsText(file);
-			e.target.value = ""; // Reset file input
-		}
-	});
+    document.getElementById("importResults").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            if (Array.isArray(data)) {
+              data.forEach((row) => addRowFromData(row));
+              // Set focus to results heading after successful import
+              // document.getElementById("results-section").focus();
+              // Announce to screen readers and show toast
+              const announcement = document.getElementById("sr-announcement");
+              const message = `${data.length} colour pairs imported. Navigate to the results table to review them.`;
+              announcement.textContent = message;
+              showToast(`${data.length} colour pairs imported`);
+              setTimeout(() => {
+                announcement.textContent = "";
+              }, 3000);
+            } else {
+              throw new Error("Invalid data format.");
+            }
+          } catch (error) {
+            alert("Error importing file: " + error.message);
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = ""; // Reset file input
+      }
+    });
 
-	// Add event listener for delete buttons using event delegation
-	document
-		.querySelector("#contrastResults")
-		.addEventListener("click", (e) => {
-			if (e.target.matches('button[data-action="delete"]')) {
-				showDeleteConfirmModal(e.target);
-			}
-		});
+    // Add event listener for delete buttons using event delegation
+    document
+      .querySelector("#contrastResults")
+      .addEventListener("click", (e) => {
+        if (e.target.matches('button[data-action="delete"]')) {
+          showDeleteConfirmModal(e.target);
+        }
+      });
 
-	// Clear results functionality
-	document.getElementById("clearResults").addEventListener("click", () => {
-		if (document.querySelectorAll("#contrastResults tbody tr").length > 0) {
-			showClearConfirmModal();
-		} else {
-			showAlert("No results to clear!");
-		}
-	});
+    // Clear results functionality
+    document.getElementById("clearResults").addEventListener("click", () => {
+      if (document.querySelectorAll("#contrastResults tbody tr").length > 0) {
+        showClearConfirmModal();
+      } else {
+        showAlert("No results to clear!");
+      }
+    });
 
-	function hexToRgb(hex) {
-		hex = hex.replace("#", "");
-		if (hex.length === 3) {
-			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-		}
-		const r = parseInt(hex.substring(0, 2), 16);
-		const g = parseInt(hex.substring(2, 4), 16);
-		const b = parseInt(hex.substring(4, 6), 16);
-		return [r, g, b];
-	}
+    function hexToRgb(hex) {
+      hex = hex.replace("#", "");
+      if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      }
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+      return [r, g, b];
+    }
 
-	function getLuminance(r, g, b) {
-		const [rs, gs, bs] = [r, g, b].map((c) => {
-			c = c / 255;
-			return c <= 0.03928
-				? c / 12.92
-				: Math.pow((c + 0.055) / 1.055, 2.4);
-		});
-		return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
-	}
+    function getLuminance(r, g, b) {
+      const [rs, gs, bs] = [r, g, b].map((c) => {
+        c = c / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+    }
 
-	function getContrastRatio(l1, l2) {
-		const lighter = Math.max(l1, l2);
-		const darker = Math.min(l1, l2);
-		return (lighter + 0.05) / (darker + 0.05);
-	}
+    function getContrastRatio(l1, l2) {
+      const lighter = Math.max(l1, l2);
+      const darker = Math.min(l1, l2);
+      return (lighter + 0.05) / (darker + 0.05);
+    }
 
-	function formatElementType(type) {
-		const typeMap = {
-			regularText: "Regular Text",
-			largeText: "Large Text",
-			uiComponent: "UI Component",
-			graphicalObject: "Graphical Object",
-		};
-		return typeMap[type] || type;
-	}
+    function formatElementType(type) {
+      const typeMap = {
+        regularText: "Regular Text",
+        largeText: "Large Text",
+        uiComponent: "UI Component",
+        graphicalObject: "Graphical Object",
+      };
+      return typeMap[type] || type;
+    }
 
-	function checkWCAGCompliance(ratio, elementType) {
-		let aa, aaa;
+    function checkWCAGCompliance(ratio, elementType) {
+      let aa, aaa;
 
-		switch (elementType) {
-			case "largeText":
-				aa = ratio >= 3;
-				aaa = ratio >= 4.5;
-				break;
-			case "regularText":
-				aa = ratio >= 4.5;
-				aaa = ratio >= 7;
-				break;
-			case "uiComponent":
-			case "graphicalObject":
-				aa = ratio >= 3;
-				aaa = "N/A";
-				break;
-			default:
-				aa = false;
-				aaa = false;
-		}
+      switch (elementType) {
+        case "largeText":
+          aa = ratio >= 3;
+          aaa = ratio >= 4.5;
+          break;
+        case "regularText":
+          aa = ratio >= 4.5;
+          aaa = ratio >= 7;
+          break;
+        case "uiComponent":
+        case "graphicalObject":
+          aa = ratio >= 3;
+          aaa = "N/A";
+          break;
+        default:
+          aa = false;
+          aaa = false;
+      }
 
-		return { aa, aaa };
-	}
+      return { aa, aaa };
+    }
 
-	const form = document.getElementById("contrastForm");
-	form.addEventListener("submit", function (e) {
-		e.preventDefault();
+    const form = document.getElementById("contrastForm");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-		let foreground = document.getElementById("foreground").value;
-		let background = document.getElementById("background").value;
-		const component = document.getElementById("component").value;
+      let foreground = document.getElementById("foreground").value;
+      let background = document.getElementById("background").value;
+      const component = document.getElementById("component").value;
 
-		// Ensure # prefix for hex colours
-		foreground = foreground.startsWith("#") ? foreground : "#" + foreground;
-		background = background.startsWith("#") ? background : "#" + background;
+      // Ensure # prefix for hex colours
+      foreground = foreground.startsWith("#") ? foreground : "#" + foreground;
+      background = background.startsWith("#") ? background : "#" + background;
 
-		const elementType = document.getElementById("elementType").value;
+      const elementType = document.getElementById("elementType").value;
 
-		// Convert colours to RGB
-		const fgRGB = hexToRgb(foreground);
-		const bgRGB = hexToRgb(background);
+      // Convert colours to RGB
+      const fgRGB = hexToRgb(foreground);
+      const bgRGB = hexToRgb(background);
 
-		// Calculate luminance
-		const fgLuminance = getLuminance(...fgRGB);
-		const bgLuminance = getLuminance(...bgRGB);
+      // Calculate luminance
+      const fgLuminance = getLuminance(...fgRGB);
+      const bgLuminance = getLuminance(...bgRGB);
 
-		// Calculate contrast ratio
-		const ratio = getContrastRatio(fgLuminance, bgLuminance);
-		const compliance = checkWCAGCompliance(ratio, elementType);
+      // Calculate contrast ratio
+      const ratio = getContrastRatio(fgLuminance, bgLuminance);
+      const compliance = checkWCAGCompliance(ratio, elementType);
 
-		// Add to results table
-		const tbody = document.querySelector("#contrastResults tbody");
-		const row = document.createElement("tr");
-		row.innerHTML = `
+      // Add to results table
+      const tbody = document.querySelector("#contrastResults tbody");
+      const row = document.createElement("tr");
+      row.innerHTML = `
 			<td>${component}</td>
 			<td>
 				<span aria-hidden="true" style="display: inline-block; width: 24px; height: 24px; border-radius: 4px; background-color: ${foreground}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
@@ -570,94 +564,95 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			<td class="${compliance.aa ? "pass" : "fail"}">${compliance.aa ? "Pass" : "Fail"}</td>
 			<td class="${compliance.aaa === "N/A" ? "na" : compliance.aaa ? "pass" : "fail"}">${compliance.aaa === "N/A" ? "N/A" : compliance.aaa ? "Pass" : "Fail"}</td>
 			<td>
-				<button type="button" data-action="delete">Remove</button>
+				<button type="button" class="table-button" data-action="delete">Remove</button>
 			</td>
 		`;
-		tbody.appendChild(row);
+      tbody.appendChild(row);
 
-		// Show results section
-		document.getElementById("resultsContainer").style.display = "block";
+      // Show results section
+      document.getElementById("resultsContainer").style.display = "block";
 
-		// Reset form and set focus back to component input
-		form.reset();
+      // Reset form and set focus back to component input
+      form.reset();
 
-		// Send screen reader message and show toast
-		const message =
-			"Colour pair added. Navigate back to the form to add more colour pairs or navigate forward to the results table.";
-		document.getElementById("sr-announcement").textContent = message;
-		showToast("Colour pair added");
-		setTimeout(() => {
-			document.getElementById("sr-announcement").textContent = "";
-		}, 3000);
-	});
+      // Send screen reader message and show toast
+      const message =
+        "Colour pair added. Navigate back to the form to add more colour pairs or navigate forward to the results table.";
+      document.getElementById("sr-announcement").textContent = message;
+      showToast("Colour pair added");
+      setTimeout(() => {
+        document.getElementById("sr-announcement").textContent = "";
+      }, 3000);
+    });
 
-	function saveTableAsCsv() {
-		const table = document.getElementById("contrastResults");
-		const rows = table.querySelectorAll("tr");
-		let csvContent = [];
+    function saveTableAsCsv() {
+      const table = document.getElementById("contrastResults");
+      const rows = table.querySelectorAll("tr");
+      let csvContent = [];
 
-		// Get headers
-		const headers = Array.from(rows[0].querySelectorAll("th"))
-			.slice(0, -1) // Exclude the Actions column
-			.map((header) => header.textContent.trim())
-			.map((text) => `"${text}"`); // Wrap in quotes to handle commas in text
-		csvContent.push(headers.join(","));
+      // Get headers
+      const headers = Array.from(rows[0].querySelectorAll("th"))
+        .slice(0, -1) // Exclude the Actions column
+        .map((header) => header.textContent.trim())
+        .map((text) => `"${text}"`); // Wrap in quotes to handle commas in text
+      csvContent.push(headers.join(","));
 
-		// Get data rows
-		Array.from(rows)
-			.slice(1)
-			.forEach((row) => {
-				const cells = Array.from(row.querySelectorAll("td"))
-					.slice(0, -1) // Exclude the Actions column
-					.map((cell) => cell.textContent.trim())
-					.map((text) => `"${text}"`); // Wrap in quotes to handle commas in text
-				csvContent.push(cells.join(","));
-			});
+      // Get data rows
+      Array.from(rows)
+        .slice(1)
+        .forEach((row) => {
+          const cells = Array.from(row.querySelectorAll("td"))
+            .slice(0, -1) // Exclude the Actions column
+            .map((cell) => cell.textContent.trim())
+            .map((text) => `"${text}"`); // Wrap in quotes to handle commas in text
+          csvContent.push(cells.join(","));
+        });
 
-		const csvString = csvContent.join("\n");
-		const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
-		const link = document.createElement("a");
-		const url = URL.createObjectURL(blob);
+      const csvString = csvContent.join("\n");
+      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
 
-		// Get current date for filename
-		const date = new Date().toISOString().split("T")[0];
+      // Get current date for filename
+      const date = new Date().toISOString().split("T")[0];
 
-		link.setAttribute("href", url);
-		link.setAttribute("download", `contrast-report-${date}.csv`);
-		link.style.display = "none";
-		document.body.appendChild(link);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `contrast-report-${date}.csv`);
+      link.style.display = "none";
+      document.body.appendChild(link);
 
-		// Trigger download
-		link.click();
+      // Trigger download
+      link.click();
 
-		// Cleanup
-		document.body.removeChild(link);
-		URL.revokeObjectURL(url);
+      // Cleanup
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
 
-		// Announce to screen readers and show toast
-		const announcement = document.getElementById("sr-announcement");
-		announcement.textContent = "CSV file downloaded";
-		showToast("CSV file downloaded");
-		setTimeout(() => {
-			announcement.textContent = "";
-		}, 3000);
-	}
+      // Announce to screen readers and show toast
+      const announcement = document.getElementById("sr-announcement");
+      announcement.textContent = "CSV file downloaded";
+      showToast("CSV file downloaded");
+      setTimeout(() => {
+        announcement.textContent = "";
+      }, 3000);
+    }
 
-	function showToast(message) {
-		const toast = document.createElement("div");
-		toast.textContent = message;
-		toast.style.position = "fixed";
-		toast.style.bottom = "1.25rem";
-		toast.style.left = "50%";
-		toast.style.transform = "translateX(-50%)";
-		toast.style.backgroundColor = "#333";
-		toast.style.color = "#fff";
-		toast.style.padding = "0.625rem 1.25rem";
-		toast.style.borderRadius = "0.3125rem";
-		toast.style.boxShadow = "0px 0px 0.625rem rgba(0, 0, 0, 0.1)";
-		document.body.appendChild(toast);
-		setTimeout(() => {
-			document.body.removeChild(toast);
-		}, 7000);
-	}
-</script>
+    function showToast(message) {
+      const toast = document.createElement("div");
+      toast.textContent = message;
+      toast.style.position = "fixed";
+      toast.style.bottom = "1.25rem";
+      toast.style.left = "50%";
+      toast.style.transform = "translateX(-50%)";
+      toast.style.backgroundColor = "#333";
+      toast.style.color = "#fff";
+      toast.style.padding = "0.625rem 1.25rem";
+      toast.style.borderRadius = "0.3125rem";
+      toast.style.boxShadow = "0px 0px 0.625rem rgba(0, 0, 0, 0.1)";
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        document.body.removeChild(toast);
+      }, 7000);
+    }
+  </script>
+</BaseLayout>

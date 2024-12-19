@@ -1,0 +1,33 @@
+---
+interface Props {
+  buttonText?: string;
+}
+
+const { buttonText = "Share Post" } = Astro.props;
+---
+
+<button type="button" id="shareButton" style="display: none;">
+  {buttonText}
+</button>
+
+<script>
+  const shareButton = document.getElementById("shareButton");
+
+  if (navigator.share) {
+    shareButton.style.display = "block";
+
+    shareButton.addEventListener("click", async () => {
+      const pageTitle = document.title;
+      const pageUrl = window.location.href;
+
+      try {
+        await navigator.share({
+          title: pageTitle,
+          url: pageUrl,
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    });
+  }
+</script>

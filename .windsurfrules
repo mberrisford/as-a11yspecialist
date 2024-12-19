@@ -1,0 +1,9 @@
+I'm using Astro to build this site.
+Prioritize accessibility and user experience.
+Use semantic HTML when possible.
+I'm using Pico CSS for styling.
+Additional global styles are in src/styles/global.css.
+Avoid using inline scripts when possible.
+I'm using Prettier for code formatting.
+I'm using Netlify for deployment.
+I'm using Canadian English as my primary language when composing content.

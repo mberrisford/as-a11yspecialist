@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import ShareButton from "../components/ShareButton.astro";
 const { frontmatter } = Astro.props;
 
 // Get the raw content
@@ -71,6 +72,8 @@ while ((match = regex.exec(content)) !== null) {
 
   <slot />
 
+  <ShareButton buttonText="Share this post" />
+
   <h2 id="tags">Tags:</h2>
   {
     frontmatter.tags && frontmatter.tags.length > 0 && (
@@ -86,74 +89,61 @@ while ((match = regex.exec(content)) !== null) {
 </BaseLayout>
 
 <script define:vars={{ headings }}>
-  // Function to check if an element is scrollable
-  function isScrollable(element) {
-    return (
-      element.scrollWidth > element.clientWidth ||
-      element.scrollHeight > element.clientHeight
-    );
-  }
-
-  // Function to update tabindex based on scrollability
-  function updateTabIndex(element) {
-    if (isScrollable(element)) {
-      element.setAttribute("tabindex", "0");
-    } else {
-      element.removeAttribute("tabindex");
-    }
-  }
-
   // Function to initialize headings
   function initializeHeadings() {
     // Add tabindex to h2 headings if they don't have them
-    document.querySelectorAll("h2:not(#TOC-heading)").forEach((heading, index) => {
-      // Use the pre-generated IDs from the server
-      if (index < headings.length) {
-        heading.id = headings[index].id;
-      }
-      // Always set tabindex="-1" on content headings
-      heading.setAttribute("tabindex", "-1");
-    });
+    document
+      .querySelectorAll("h2:not(#TOC-heading)")
+      .forEach((heading, index) => {
+        // Use the pre-generated IDs from the server
+        if (index < headings.length) {
+          heading.id = headings[index].id;
+        }
+        // Always set tabindex="-1" on content headings
+        heading.setAttribute("tabindex", "-1");
+      });
   }
 
   // Function to initialize code blocks
   function initializeCodeBlocks() {
-    const preElements = document.querySelectorAll("pre");
+    document.querySelectorAll("pre").forEach((pre) => {
+      // Only add the copy button if it doesn't already exist
+      if (!pre.querySelector(".copy-button")) {
+        const copyButton = document.createElement("button");
+        copyButton.className = "copy-button";
+        copyButton.setAttribute("aria-label", "Copy code to clipboard");
+        copyButton.textContent = "Copy";
+        pre.appendChild(copyButton);
 
-    // Create a ResizeObserver to watch for size changes
-    const resizeObserver = new ResizeObserver((entries) => {
-      entries.forEach((entry) => {
-        updateTabIndex(entry.target);
-      });
-    });
-
-    // Observe each pre element
-    preElements.forEach((pre) => {
-      updateTabIndex(pre); // Initial check
-      resizeObserver.observe(pre);
-    });
-
-    // Also update on window resize (for safety, in case ResizeObserver misses anything)
-    window.addEventListener("resize", () => {
-      preElements.forEach(updateTabIndex);
+        copyButton.addEventListener("click", async () => {
+          const code = pre.querySelector("code");
+          if (code) {
+            try {
+              await navigator.clipboard.writeText(code.textContent || "");
+              copyButton.textContent = "Copied!";
+              setTimeout(() => {
+                copyButton.textContent = "Copy";
+              }, 2000);
+            } catch (err) {
+              console.error("Failed to copy text: ", err);
+            }
+          }
+        });
+      }
     });
   }
 
-  // Initialize everything when the DOM is ready
-  document.addEventListener("DOMContentLoaded", () => {
+  // Initialize everything when the page loads
+  initializeHeadings();
+  initializeCodeBlocks();
+
+  // Create a MutationObserver to watch for changes
+  const observer = new MutationObserver(() => {
     initializeHeadings();
     initializeCodeBlocks();
   });
 
-  // Also handle dynamic content changes
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === "childList") {
-        initializeHeadings();
-      }
-    });
-  });
-
+  // Start observing the document with the configured parameters
   observer.observe(document.body, {
     childList: true,
     subtree: true,
@@ -170,5 +160,26 @@ while ((match = regex.exec(content)) !== null) {
   h2:focus-visible {
     outline: none;
     box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+  }
+
+  .share-button {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: var(--primary);
+    color: var(--primary-inverse);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .share-button:hover,
+  .share-button:focus {
+    opacity: 0.9;
+  }
+
+  .share-button:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
   }
 </style>
