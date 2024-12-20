@@ -110,10 +110,21 @@ while ((match = regex.exec(content)) !== null) {
       // Only add the copy button if it doesn't already exist
       if (!pre.querySelector(".copy-button")) {
         const copyButton = document.createElement("button");
-        copyButton.className = "copy-button";
+        copyButton.className = "copy-button button";
         copyButton.setAttribute("aria-label", "Copy code to clipboard");
         copyButton.textContent = "Copy";
         pre.appendChild(copyButton);
+        pre.setAttribute("role", "region");
+        pre.setAttribute("aria-label", "code block");
+
+        const previousHeading = pre.previousElementSibling;
+        if (previousHeading && previousHeading.tagName.match(/^H[1-6]$/)) {
+          const headingId = previousHeading.id;
+          if (headingId) {
+            const headingText = previousHeading.textContent.trim();
+            pre.setAttribute("aria-label", `Code block for ${headingText}.`);
+          }
+        }
 
         copyButton.addEventListener("click", async () => {
           const code = pre.querySelector("code");
@@ -121,9 +132,12 @@ while ((match = regex.exec(content)) !== null) {
             try {
               await navigator.clipboard.writeText(code.textContent || "");
               copyButton.textContent = "Copied!";
+              const announcement = document.getElementById("sr-announcement");
+              announcement.textContent = "Code copied to clipboard";
               setTimeout(() => {
                 copyButton.textContent = "Copy";
-              }, 2000);
+                announcement.textContent = "";
+              }, 3000);
             } catch (err) {
               console.error("Failed to copy text: ", err);
             }
@@ -162,24 +176,8 @@ while ((match = regex.exec(content)) !== null) {
     box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
   }
 
-  .share-button {
-    margin: 1rem 0;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    background-color: var(--primary);
-    color: var(--primary-inverse);
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-  }
-
-  .share-button:hover,
-  .share-button:focus {
-    opacity: 0.9;
-  }
-
-  .share-button:focus {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
+  .copy-button {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
   }
 </style>

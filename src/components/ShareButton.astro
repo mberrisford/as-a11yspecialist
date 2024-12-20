@@ -6,9 +6,55 @@ interface Props {
 const { buttonText = "Share Post" } = Astro.props;
 ---
 
-<button type="button" id="shareButton" style="display: none;">
-  {buttonText}
+<button type="button" id="shareButton" class="button" style="display: none;">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    role="img"
+    focusable="false"
+    ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+      d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path
+      d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path
+      d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path><path
+      d="M8.7 10.7l6.6 -3.4"></path><path d="M8.7 13.3l6.6 3.4"></path></svg
+  >{buttonText}.
+  <span class="sr-only">Opens your operating system's share feature.</span>
 </button>
+
+<style>
+  button {
+    margin-top: 2rem;
+  }
+
+  /* .share-button {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: var(--primary);
+    color: var(--primary-inverse);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .share-button:hover,
+  .share-button:focus {
+    opacity: 0.9;
+  }
+
+  .share-button:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  } */
+</style>
 
 <script>
   const shareButton = document.getElementById("shareButton");

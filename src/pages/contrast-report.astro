@@ -157,8 +157,6 @@ import ShareButton from "../components/ShareButton.astro";
   </div>
   <p>
     <ShareButton buttonText="Share this tool" />
-    <div role="status" class="sr-only" id="sr-announcement" aria-live="polite">
-    </div>
 
     <!-- Clear Results Confirmation Modal -->
     <dialog
@@ -318,9 +316,6 @@ import ShareButton from "../components/ShareButton.astro";
       setTimeout(() => {
         announcement.textContent = "";
       }, 3000);
-
-      // Return focus to the form
-      //document.getElementById("component").focus();
     }
 
     function getTableData() {
@@ -369,11 +364,11 @@ import ShareButton from "../components/ShareButton.astro";
       row.innerHTML = `
 			<td>${data.component}</td>
 			<td>
-				<span aria-hidden="true"style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.foreground}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
+				<span aria-hidden="true" style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.foreground}; vertical-align: middle; margin-right: 5px;border: var(--pico-border-width) solid var(--pico-muted-border-color)"></span>
 				${data.foreground}
 			</td>
 			<td>
-				<span aria-hidden="true"style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.background}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
+				<span aria-hidden="true" style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.background}; vertical-align: middle; margin-right: 5px;border: var(--pico-border-width) solid var(--pico-muted-border-color)"></span>
 				${data.background}
 			</td>
 			<td>${data.elementType}</td>
