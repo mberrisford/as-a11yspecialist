@@ -24,10 +24,11 @@ import ShareButton from "../components/ShareButton.astro";
   <h2 id="input-section-heading">Add Colour Pairs</h2>
 
   <p id="required-fields-info">
-    All fields are required. Use hex colours only. For example: <code
-      >#FFF000</code
-    >. After adding a colour pair, results will be added in the report below
-    automatically.
+    All fields are required. You can use most of the common colour formats. For
+    example:
+    <code>red</code>, <code>#FFF000</code>, <code>rgb(255, 0, 0)</code>, <code
+      >rgba(255, 0, 0, 0.5)</code
+    >, <code>hsl(0, 100%, 50%)</code> or<code>hsla(0, 100%, 50%, 0.5)</code>.
   </p>
   <form id="contrastForm" aria-labelledby="input-section-heading">
     <div class="grid">
@@ -72,13 +73,12 @@ import ShareButton from "../components/ShareButton.astro";
           type="text"
           id="foreground"
           name="foreground"
-          pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
           required
           spellcheck="false"
           aria-describedby="foreground-help"
         />
         <small id="foreground-help"
-          >Use hex colours only. For example: <code>#FFF000</code>.</small
+          >Enter a color in any supported format (color name, HEX, RGB, HSL).</small
         >
       </div>
       <div>
@@ -87,13 +87,12 @@ import ShareButton from "../components/ShareButton.astro";
           type="text"
           id="background"
           name="background"
-          pattern="^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
           required
           spellcheck="false"
           aria-describedby="background-help"
         />
         <small id="background-help"
-          >Use hex colours only. For example: <code>#FFF000</code>.</small
+          >Enter a color in any supported format (color name, HEX, RGB, HSL).</small
         >
       </div>
     </div>
@@ -364,11 +363,11 @@ import ShareButton from "../components/ShareButton.astro";
       row.innerHTML = `
 			<td>${data.component}</td>
 			<td>
-				<span aria-hidden="true" style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.foreground}; vertical-align: middle; margin-right: 5px;border: var(--pico-border-width) solid var(--pico-muted-border-color)"></span>
+				<span class="color-preview" aria-hidden="true"></span>
 				${data.foreground}
 			</td>
 			<td>
-				<span aria-hidden="true" style="display: inline-block; width: 20px; height: 20px; border-radius: 4px; background-color: ${data.background}; vertical-align: middle; margin-right: 5px;border: var(--pico-border-width) solid var(--pico-muted-border-color)"></span>
+				<span class="color-preview" aria-hidden="true"></span>
 				${data.background}
 			</td>
 			<td>${data.elementType}</td>
@@ -515,23 +514,69 @@ import ShareButton from "../components/ShareButton.astro";
       return { aa, aaa };
     }
 
+    // Color validation and conversion functions
+    function isValidColor(color) {
+      const testElement = document.createElement("div");
+      testElement.style.color = color;
+      return testElement.style.color !== "";
+    }
+
+    function convertToHex(color) {
+      const testElement = document.createElement("div");
+      testElement.style.color = color;
+      document.body.appendChild(testElement);
+      const computedColor = window.getComputedStyle(testElement).color;
+      document.body.removeChild(testElement);
+
+      // Convert rgb to hex
+      const rgb = computedColor.match(/\d+/g);
+      if (!rgb) return null;
+
+      const hex = rgb.map((x) => {
+        const hex = parseInt(x).toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+      });
+
+      return "#" + hex.join("");
+    }
+
     const form = document.getElementById("contrastForm");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      let foreground = document.getElementById("foreground").value;
-      let background = document.getElementById("background").value;
+      let foreground = document.getElementById("foreground").value.trim();
+      let background = document.getElementById("background").value.trim();
+
+      // Store original input values
+      const originalForeground = foreground;
+      const originalBackground = background;
+
+      // Validate colors
+      if (!isValidColor(foreground)) {
+        showAlert("Invalid foreground color format. Please check your input.");
+        return;
+      }
+      if (!isValidColor(background)) {
+        showAlert("Invalid background color format. Please check your input.");
+        return;
+      }
+
+      // Convert colors to hex for contrast calculation
+      const foregroundHex = convertToHex(foreground);
+      const backgroundHex = convertToHex(background);
+
+      if (!foregroundHex || !backgroundHex) {
+        showAlert("Error converting colors. Please try a different format.");
+        return;
+      }
+
+      // Use the converted hex colors for contrast calculation
       const component = document.getElementById("component").value;
-
-      // Ensure # prefix for hex colours
-      foreground = foreground.startsWith("#") ? foreground : "#" + foreground;
-      background = background.startsWith("#") ? background : "#" + background;
-
       const elementType = document.getElementById("elementType").value;
 
-      // Convert colours to RGB
-      const fgRGB = hexToRgb(foreground);
-      const bgRGB = hexToRgb(background);
+      // Convert colours to RGB for contrast calculation
+      const fgRGB = hexToRgb(foregroundHex);
+      const bgRGB = hexToRgb(backgroundHex);
 
       // Calculate luminance
       const fgLuminance = getLuminance(...fgRGB);
@@ -539,29 +584,28 @@ import ShareButton from "../components/ShareButton.astro";
 
       // Calculate contrast ratio
       const ratio = getContrastRatio(fgLuminance, bgLuminance);
-      const compliance = checkWCAGCompliance(ratio, elementType);
+      const { aa, aaa } = checkWCAGCompliance(ratio, elementType);
 
-      // Add to results table
-      const tbody = document.querySelector("#contrastResults tbody");
       const row = document.createElement("tr");
       row.innerHTML = `
-			<td>${component}</td>
-			<td>
-				<span aria-hidden="true" style="display: inline-block; width: 24px; height: 24px; border-radius: 4px; background-color: ${foreground}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
-				${foreground}
-			</td>
-			<td>
-				<span aria-hidden="true" style="display: inline-block; width: 24px; height: 24px; border-radius: 4px; background-color: ${background}; vertical-align: middle; margin-right: 5px;border: 1px solid black"></span>
-				${background}
-			</td>
-			<td>${formatElementType(elementType)}</td>
-			<td>${ratio.toFixed(2)}:1</td>
-			<td class="${compliance.aa ? "pass" : "fail"}">${compliance.aa ? "Pass" : "Fail"}</td>
-			<td class="${compliance.aaa === "N/A" ? "na" : compliance.aaa ? "pass" : "fail"}">${compliance.aaa === "N/A" ? "N/A" : compliance.aaa ? "Pass" : "Fail"}</td>
-			<td>
-				<button type="button" class="table-button" data-action="delete">Remove</button>
-			</td>
-		`;
+        <td>${component}</td>
+        <td>
+          <span class="color-preview" aria-hidden="true"></span>
+          ${originalForeground}
+        </td>
+        <td>
+          <span class="color-preview" aria-hidden="true"></span>
+          ${originalBackground}
+        </td>
+        <td>${formatElementType(elementType)}</td>
+        <td>${ratio.toFixed(2)}:1</td>
+        <td class="${aa ? "pass" : "fail"}">${aa ? "Pass" : "Fail"}</td>
+        <td class="${aaa === "N/A" ? "na" : aaa ? "pass" : "fail"}">${aaa === "N/A" ? "N/A" : aaa ? "Pass" : "Fail"}</td>
+        <td>
+          <button type="button" class="table-button" data-action="delete">Remove</button>
+        </td>
+      `;
+      const tbody = document.querySelector("#contrastResults tbody");
       tbody.appendChild(row);
 
       // Show results section
