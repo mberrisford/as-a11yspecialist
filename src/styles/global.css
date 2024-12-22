@@ -71,6 +71,10 @@ ul li {
   margin: 0;
 }
 
+#saveAsCsvButton {
+  margin-top: 1rem;
+}
+
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --pico-primary-underline: var(--pico-primary);
