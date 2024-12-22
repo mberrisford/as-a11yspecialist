@@ -6,4 +6,14 @@ Additional global styles are in src/styles/global.css.
 Avoid using inline scripts when possible.
 I'm using Prettier for code formatting.
 I'm using Netlify for deployment.
-I'm using Canadian English as my primary language when composing content.
+
+When writing content:
+
+- Use Canadian English as my primary language.
+- Use clear, direct language and avoid complex terminology.
+- Aim for a Flesch reading score of 80 or higher.
+- Use the active voice.
+- Avoid adverbs.
+- Avoid buzzwords and instead use plain English.
+- Use jargon where relevant.
+- Avoid being salesy or overly enthusiastic and instead express calm confidence.

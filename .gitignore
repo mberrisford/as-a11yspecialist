@@ -25,4 +25,7 @@ pnpm-debug.log*
 
 .vscode/
 backup/
+
 evaluatory-results/
+evaluatory.light.json5
+evaluatory.dark.json5
