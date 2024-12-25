@@ -80,7 +80,7 @@ ul li {
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  background-color: var(--pico-color-preview);
+  /* background-color: var(--pico-color-preview); */
   vertical-align: middle;
   margin-right: 5px;
   border: var(--pico-border-width) solid var(--pico-muted-border-color);
