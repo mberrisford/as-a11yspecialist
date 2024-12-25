@@ -363,11 +363,11 @@ import ShareButton from "../components/ShareButton.astro";
       row.innerHTML = `
 			<td>${data.component}</td>
 			<td>
-				<span class="color-preview" aria-hidden="true"></span>
+				<span class="color-preview" style="background-color: ${data.foreground}" aria-hidden="true"></span>
 				${data.foreground}
 			</td>
 			<td>
-				<span class="color-preview" aria-hidden="true"></span>
+				<span class="color-preview" style="background-color: ${data.background}" aria-hidden="true"></span>
 				${data.background}
 			</td>
 			<td>${data.elementType}</td>
@@ -590,11 +590,11 @@ import ShareButton from "../components/ShareButton.astro";
       row.innerHTML = `
         <td>${component}</td>
         <td>
-          <span class="color-preview" aria-hidden="true"></span>
+          <span class="color-preview" style="background-color: ${foreground}" aria-hidden="true"></span>
           ${originalForeground}
         </td>
         <td>
-          <span class="color-preview" aria-hidden="true"></span>
+          <span class="color-preview" style="background-color: ${background}" aria-hidden="true"></span>
           ${originalBackground}
         </td>
         <td>${formatElementType(elementType)}</td>
