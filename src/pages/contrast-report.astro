@@ -125,33 +125,32 @@ import ShareButton from "../components/ShareButton.astro";
     </div>
   </form>
 
-  <div id="resultsContainer" style="display: none;">
-    <hr aria-hidden="true" />
-    <h2 id="results-section" tabindex="-1">Colour Contrast Report</h2>
-
-    <div id="filterContainer" style="display: none;">
-      <div class="grid">
-        <div>
-          <label for="resultFilter">Filter Results:</label>
-          <select
-            id="resultFilter"
-            class="contrast-filter"
-            aria-label="Filter results"
-          >
-            <option value="all">All Results</option>
-            <option value="regularText">Regular Text</option>
-            <option value="largeText">Large Text</option>
-            <option value="uiComponent">UI Components</option>
-            <option value="graphicalObject">Graphical Objects</option>
-            <option value="wcagAAFail">WCAG AA Failures</option>
-            <option value="wcagAAAFail">WCAG AAA Failures</option>
-            <option value="wcagAAPass">WCAG AA Passes</option>
-            <option value="wcagAAAPass">WCAG AAA Passes</option>
-          </select>
-        </div>
-        <div></div>
+  <div id="filterContainer" style="display: none;">
+    <div class="grid">
+      <div>
+        <label for="resultFilter">Show:</label>
+        <select
+          id="resultFilter"
+          class="contrast-filter"
+          aria-label="Filter results"
+        >
+          <option value="all">All Results</option>
+          <option value="regularText">Regular Text</option>
+          <option value="largeText">Large Text</option>
+          <option value="uiComponent">UI Components</option>
+          <option value="graphicalObject">Graphical Objects</option>
+          <option value="wcagAAFail">WCAG AA Failures</option>
+          <option value="wcagAAAFail">WCAG AAA Failures</option>
+          <option value="wcagAAPass">WCAG AA Passes</option>
+          <option value="wcagAAAPass">WCAG AAA Passes</option>
+        </select>
       </div>
+      <div></div>
+    </div>
 
+    <div id="resultsContainer" style="display: none;">
+      <hr aria-hidden="true" />
+      <h2 id="results-section" tabindex="-1">Colour Contrast Report</h2>
       <div class="overflow-auto">
         <table
           id="contrastResults"
@@ -782,21 +781,10 @@ import ShareButton from "../components/ShareButton.astro";
             row.style.display = shouldShow ? "table-row" : "none";
           });
 
-          // Count visible rows
-          const visibleRows = Array.from(rows).filter(
-            (row) => row.style.display !== "none",
-          ).length;
-
-          // Get filter label
-          const filterLabel = this.options[this.selectedIndex].text;
-
-          // Create message with result count
-          const message = `${filterLabel} filter applied: ${visibleRows} result${visibleRows !== 1 ? "s" : ""} showing`;
-
           // Announce to screen readers and show toast
           const announcement = document.getElementById("sr-announcement");
-          announcement.textContent = message;
-          showToast(message);
+          announcement.textContent = "Report filter applied";
+          showToast("Report filter applied");
           setTimeout(() => {
             announcement.textContent = "";
           }, 3000);
