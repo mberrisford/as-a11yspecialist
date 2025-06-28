@@ -678,6 +678,7 @@ import ShareButton from "../components/ShareButton.astro";
 
     function showToast(message) {
       const toast = document.createElement("div");
+      toast.id = "toast";
       toast.textContent = message;
       toast.style.position = "fixed";
       toast.style.bottom = "1.25rem";
