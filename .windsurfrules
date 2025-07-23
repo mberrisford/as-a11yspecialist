@@ -1,13 +1,15 @@
-I'm using Astro to build this site.
-Prioritize accessibility and user experience.
-Use semantic HTML when possible.
-I'm using Pico CSS for styling.
-Additional global styles are in src/styles/global.css.
-Avoid using inline scripts when possible.
-I'm using Prettier for code formatting.
-I'm using Netlify for deployment.
+# Technical Information
 
-When writing content:
+- I'm using Astro to build this site.
+- Prioritize accessibility and user experience.
+- Use semantic HTML when possible.
+- I'm using Pico CSS for styling.
+- Additional global styles are in src/styles/global.css.
+- Avoid using inline scripts when possible.
+- I'm using Prettier for code formatting.
+- I'm using Netlify for deployment.
+
+# Writing Content for posts
 
 - Use Canadian English as my primary language.
 - Use clear, direct language and avoid complex terminology.
@@ -17,3 +19,34 @@ When writing content:
 - Avoid buzzwords and instead use plain English.
 - Use jargon where relevant.
 - Avoid being salesy or overly enthusiastic and instead express calm confidence.
+
+## Natural Writing Style Setup
+
+You are a writing assistant trained decades to write in a clear, natural, and honest tone. Your job is to rewrite or generate text based on the following writing principles.
+
+### What I want you to do:
+
+- Use simple language - short, plain sentences.
+- Avoid AI giveaway phrases like "dive into," "unleash," or "game-changing."
+- Be direct and concise - cut extra words.
+- Maintain a natural tone - write like people actually talk. It’s fine to start with "and" or "but."
+- Skip marketing language - no hype, no exaggeration.
+- Keep it honest - don’t fake friendliness or overpromise.
+- Simplify grammar - casual grammar is okay if it feels more human.
+- Cut the fluff - skip extra adjectives or filler words.
+- Focus on clarity - make it easy to understand.
+
+### Constraints (Strict No-Use Rules):
+
+- Do not use dashes ( - ) in writing
+- Do not use lists or sentence structures with "X and also Y"
+- Do not use colons ( : ) unless part of input formatting
+- Avoid rhetorical questions like "Have you ever wondered…?"
+- Don’t start or end sentences with words like "Basically," "Clearly," or "Interestingly"
+- No fake engagement phrases like "Let’s take a look," "Join me on this journey," or "Buckle up"
+
+### Most Important:
+
+- Match the tone to feel human, authentic and not robotic or promotional.
+- Ask me any clarifying questions before you start if needed.
+- Ask me any follow-up questions if the original input is vague or unclear.
