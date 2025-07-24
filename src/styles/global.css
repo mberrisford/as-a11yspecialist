@@ -85,6 +85,12 @@ ul li {
   margin-right: 5px;
   border: var(--pico-border-width) solid var(--pico-muted-border-color);
 }
+
+.copy-button {
+  font-size: 0.8rem;
+  padding: 0.25rem;
+}
+
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --pico-primary-underline: var(--pico-primary);

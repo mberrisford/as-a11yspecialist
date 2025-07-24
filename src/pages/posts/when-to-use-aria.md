@@ -1,13 +1,17 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: "When to Use WAI-ARIA and When to Avoid It"
+title: "When to Use ARIA and When to Avoid It"
 pubDate: 2025-07-23
-description: "Understanding the right situations for using WAI-ARIA attributes can make your websites more accessible without adding unnecessary complexity."
+description: "Understanding the right situations for using ARIA attributes can make your websites more accessible without adding unnecessary complexity."
 author: "Martin Berrisford"
 tags: ["accessibility", "ARIA", "HTML", "semantics"]
 ---
 
-Many web developers reach for WAI-ARIA attributes as their first solution for accessibility issues. This approach often creates more problems than it solves. ARIA is powerful but comes with responsibility. Let's talk about when you should use ARIA and when you should avoid it.
+Many web developers reach for ARIA attributes as their first solution for accessibility issues. This approach usually creates more problems than it solves. ARIA is powerful but comes with responsibility. Let's talk about when you should use ARIA and when you should avoid it.
+
+## What is ARIA?
+
+ARIA is a way to add extra information to HTML elements. This information helps assistive technologies like screen readers understand what the elements are for, what state they are in, and how they behave. **When used sparingly and correctly**, ARIA can make your websites more accessible.
 
 ## Native HTML is Your First Choice
 
@@ -24,18 +28,16 @@ The first rule of ARIA is not to use ARIA when native HTML can do the job. HTML 
 The native button element gives you:
 
 - Keyboard accessibility (Enter and Space activation)
-- Focus management
-- Proper role announcement
-- Touch target sizing
-- Button appearance
+- Focus management (no need for tabindex)
+- Proper role announcement ("button")
 
 All without writing a single line of JavaScript or adding ARIA attributes.
 
 ## When ARIA Makes Sense
 
-ARIA becomes useful when HTML alone can't express the interface you need to build. Here are situations where ARIA is appropriate:
+ARIA becomes useful when HTML alone can't express the interface you need to build. Here are some situations where ARIA is appropriate:
 
-### 1. Dynamic Content Updates
+### Dynamic Content Updates
 
 When content changes without a page reload, ARIA can announce these changes to screen reader users.
 
@@ -45,9 +47,21 @@ When content changes without a page reload, ARIA can announce these changes to s
 </div>
 ```
 
-The aria-live region tells screen readers to announce content changes without requiring user focus.
+The aria-live region tells screen readers to announce content changes without requiring user focus. Note: ARIA live regions must
+be rendered in the DOM prior to the content change. Otherwise, screen readers may not announce the change.
 
-### 2. Complex Custom Widgets
+### Labelling and Providing Additional Context
+
+`aria-label`, `aria-labelledby` and `aria-describedby` may be used to provide an alternative label or associate additional help text with an element.
+
+```html
+<button aria-label="Play">▶</button>
+<button aria-describedby="current-time">Play</button>
+
+<span id="current-time">00:00</span>
+```
+
+### Complex Custom Widgets
 
 If you're building custom components that don't match HTML elements, ARIA helps define their purpose.
 
@@ -63,12 +77,12 @@ If you're building custom components that don't match HTML elements, ARIA helps 
 
 But remember, with complex widgets comes complex responsibility. You need to implement all expected keyboard interactions and state management.
 
-### 3. Enriching Existing Semantics
+### Enriching Existing Semantics
 
 Sometimes you need to add information to elements that already have semantics.
 
 ```html
-<button aria-pressed="false">Dark Mode</button>
+<button aria-pressed="false">Turn On Dark Mode</button>
 ```
 
 The aria-pressed attribute turns a regular button into a toggle button, communicating its current state.
@@ -77,7 +91,7 @@ The aria-pressed attribute turns a regular button into a toggle button, communic
 
 ARIA isn't always the answer. Here are situations where you should avoid it:
 
-### 1. Duplicating Native Semantics
+### Duplicating Native Semantics
 
 Adding roles that match the element's native semantics is unnecessary.
 
@@ -86,21 +100,7 @@ Adding roles that match the element's native semantics is unnecessary.
 <button role="button">Click me</button>
 ```
 
-### 2. Fixing Visual-Only Problems
-
-ARIA doesn't fix visual accessibility issues like color contrast, text size, or touch target size.
-
-```html
-<!-- ARIA won't help here -->
-<span
-  role="button"
-  style="color: #EEEEEE; background: #FFFFFF; font-size: 8px;"
->
-  Hard to see button
-</span>
-```
-
-### 3. When You Can't Fulfill All Requirements
+### When You Can't Fulfill All Requirements
 
 If you use ARIA roles, you must implement all expected behaviors. For example, if you add role="button" to a div, you must add keyboard support, focus management, and proper event handling.
 
@@ -134,6 +134,13 @@ If the answer to any of these questions is "no," reconsider your approach.
 
 ## Conclusion
 
-WAI-ARIA is a powerful tool for web accessibility when used correctly. Start with semantic HTML, use ARIA only when necessary, and always test with real assistive technologies. This approach creates truly accessible experiences without unnecessary complexity.
+ARIA is a powerful tool for web accessibility when used correctly. Start with semantic HTML, use ARIA only when necessary, and always test with real assistive technologies. This approach creates truly accessible experiences without unnecessary complexity.
 
 Remember that the best ARIA is often no ARIA at all. Native HTML elements with proper semantics will take you far in creating accessible websites.
+
+## Recommended Resources
+
+- [Accessible Rich Internet Applications (WAI-ARIA) 1.3](https://www.w3.org/TR/wai-aria-1.3/)
+- [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/)
+- [What Is ARIA And Why Use It (YouTube)](https://www.youtube.com/watch?v=0JMlva_cv9U)
+- [How Not To Use ARIA (YouTube)](https://www.youtube.com/watch?v=Z51JWov4dOY)
