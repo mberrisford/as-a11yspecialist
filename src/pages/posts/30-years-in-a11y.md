@@ -4,9 +4,6 @@ title: "30 Years in Accessibility!"
 pubDate: 2024-11-04
 description: "This year marks my 30th year as an accessibility and assistive technology professional!"
 author: "Martin Berrisford"
-# image:
-#   url: "https://docs.astro.build/assets/rose.webp"
-#   alt: ""
 tags: ["milestones"]
 ---
 
@@ -16,4 +13,4 @@ My journey began in 1994, right out of college, working for a small assistive te
 
 In the past decade, my focus has shifted to corporate-level web accessibility, where I now spend my time testing, training, and coaching development teams on creating inclusive digital experiences.
 
-It's been an incredibly fulfilling journey so far — filled with challenges, learning, and growth. And along the way, I've met some truly extraordinary people and I'm grateful for all the experiences and people that have shaped this path.
+It's been an incredibly fulfilling journey so far, filled with challenges, learning and growth. And along the way, I've met some truly extraordinary people and I'm grateful for all the experiences and people that have shaped this path.
