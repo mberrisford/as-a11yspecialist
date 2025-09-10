@@ -9,4 +9,4 @@ tags: ["accessibility", "PDF"]
 
 ## PDF Example Files
 
-- [Accessible PDF Example](/apryse-itext-wtpdf.pdf) - A properly tagged PDF with good structure
+- [Accessible PDF Example](/PDFUA-Ref-2-03_AcademicAbstract.pdf) - A properly tagged PDF with good structure
