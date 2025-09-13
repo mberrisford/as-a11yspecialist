@@ -45,8 +45,9 @@ Screen reader users can jump directly to specific page regions using landmark el
 <div class="footer">...</div>
 
 <!-- With landmarks -->
-<header>...</header>
-<nav>...</nav>
+<header>
+  <nav>...</nav>
+</header>
 <main>...</main>
 <footer>...</footer>
 ```
@@ -89,7 +90,7 @@ The `main` element contains the primary content of the page. A page should have 
 The `aside` element represents content that is not directly related to the main content. This includes:
 
 - Sidebars
-- Pull quotes
+- Quotes
 - Related article links
 - Ads
 - Author bios
@@ -98,11 +99,10 @@ The `aside` element represents content that is not directly related to the main 
 
 The `footer` element represents concluding content for a page or section. It typically contains:
 
+- Other secondary links (e.g. privacy policy, terms of service, accessibility statement)
 - Copyright information
 - Contact details
-- Site maps
-- Related documents
-- Legal information
+- Social media links
 
 Like `header`, a page can have multiple `footer` elements.
 
@@ -119,8 +119,10 @@ Every page should have exactly one `<main>` element. This is crucial for screen 
 ```html
 <!-- Good practice -->
 <body>
-  <header>...</header>
-  <nav>...</nav>
+  <header>
+    Logo and site name
+    <nav>...</nav>
+  </header>
   <main>
     <!-- Primary content here -->
   </main>
@@ -145,7 +147,7 @@ Even with landmark elements, include a "skip to content" link as the first focus
 HTML5 landmark elements have implicit ARIA roles. You don't need to add role attributes to these elements:
 
 ```html
-<!-- Unnecessary -->
+<!-- Unnecessary but won't cause issues -->
 <nav role="navigation">...</nav>
 
 <!-- Correct -->
