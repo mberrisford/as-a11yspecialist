@@ -4,7 +4,7 @@ title: "PDF Example Files"
 pubDate: 2025-09-10
 description: "Some pdf files for testing accessibility features."
 author: "Martin Berrisford"
-tags: ["accessibility", "PDF"]
+tags: ["accessibility", "PDF", "draft]
 ---
 
 ## PDF Example Files
