@@ -117,10 +117,11 @@ Every page should have exactly one `<main>` element. This is crucial for people 
 Even with landmark elements, include a "skip to content" link as the first focusable element on your page. This provides another way for keyboard users to bypass repetitive navigation.
 
 ```html
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- Rest of the page -->
+  <header>...</header>
   <main id="main-content" tabindex="-1">...</main>
+  <footer></footer>
 </body>
 ```
 
@@ -163,7 +164,7 @@ Avoid nesting landmarks of the same type. For example, don't put a `<nav>` insid
 
 ### Overusing `<section>` and `<article>`
 
-The `<section>` and `<article>` elements are not always landmarks. They only become landmarks when they have accessible names through headings or ARIA labels.
+The `<section>` and `<article>` elements are not always landmarks. They only become landmarks when they have accessible names with ARIA labels. My advice is don't name them explicitly unless you believe it's something really useful and may require a user to reference quickly.
 
 ### Missing the Primary `<main>` Element
 
