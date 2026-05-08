@@ -39,7 +39,7 @@ Images, charts, and graphs need alternative text, or alt text. This text describ
 
 ### Navigational Aids
 
-Features like a table of contents, bookmarks, and descriptive links help all users navigate the document. For screen reader users, these aids are vital for finding information without having to read the entire document from the beginning.
+Features like a table of contents, bookmarks, and descriptive links help all users navigate the document. For people who use screen readers, these aids are vital for finding information without having to read the entire document from the beginning.
 
 ## A Simple Checklist
 

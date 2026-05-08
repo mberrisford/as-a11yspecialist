@@ -22,11 +22,11 @@ Images and other visual non-text content, like icons and graphs, include a text 
 
 - Images used only for decoration and not for conveying information should be hidden from assistive technologies.
 
-### Alternatives for complex images 
+### Alternatives for complex images
 
 Complex images, graphs, and other complex visual content must have a text alternative accessible to assistive technologies that conveys the purpose and the same information.
 
-- Charts, graphs, diagrams, and other complex images should have text descriptions either on the same page or on a linked page. These descriptions must convey the purpose of the image and provide guidance for screen reader users on interacting with the image when applicable. For more information, refer to [WCAG 1.1.1 Non-text Content](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html).
+- Charts, graphs, diagrams, and other complex images should have text descriptions either on the same page or on a linked page. These descriptions must convey the purpose of the image and provide guidance for people who use screen readers when interacting with the image. For more information, refer to [WCAG 1.1.1 Non-text Content](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html).
 
 - If charts or graphs display tabular data (such as interrelated or time-based data), ensure the data is available for download, on alternative pages, or embedded in hidden tables that are screen reader accessible if it cannot be accessed within the graphic.
 

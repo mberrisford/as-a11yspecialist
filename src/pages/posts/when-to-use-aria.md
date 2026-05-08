@@ -39,11 +39,11 @@ ARIA becomes useful when HTML alone can't express the interface you need to buil
 
 ### Dynamic Content Updates
 
-When content changes without a page reload, ARIA can announce these changes to screen reader users.
+When content changes without a page reload, ARIA can announce these changes to people who use screen readers.
 
 ```html
 <div aria-live="polite" aria-atomic="true" id="notification-area">
-  Your message was sent successfully.
+  <p>Your message was sent successfully.<p>
 </div>
 ```
 
