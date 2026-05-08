@@ -11,31 +11,13 @@ Landmark elements are the backbone of accessible web pages. They provide structu
 
 ## What Are Landmark Elements?
 
-Landmark elements are HTML semantic tags that define the different regions of a web page:
-
-```html
-<header>
-  <nav>
-    <main>
-      <aside>
-        <section>
-          <article>
-            <footer></footer>
-          </article>
-        </section>
-      </aside>
-    </main>
-  </nav>
-</header>
-```
-
-Each element communicates its purpose to browsers and assistive technologies without requiring additional attributes.
+Landmark elements are HTML semantic tags that define the different regions of a web page. Each element communicates its purpose to browsers and assistive technologies.
 
 ## Why Landmarks Matter
 
 ### Navigation Efficiency
 
-Screen reader users can jump directly to specific page regions using landmark elements. This saves time and reduces frustration.
+Screen reader users can jump directly to specific page regions using landmark elements. This saves time. Also, most screen readers announce the region type and name (if provided) when navigating to elements within that region, which provides additional context.
 
 ```html
 <!-- Without landmarks -->
@@ -152,12 +134,7 @@ HTML5 landmark elements have implicit ARIA roles. You don't need to add role att
 
 <!-- Correct -->
 <nav>...</nav>
-
-<!-- Exception -->
-<div role="navigation">...</div>
 ```
-
-The exception is when you need to create landmarks with non-semantic elements for backward compatibility.
 
 ### Label Landmarks When You Have Multiples
 
