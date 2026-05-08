@@ -17,7 +17,7 @@ Landmark elements are HTML semantic tags that define the different regions of a 
 
 ### Navigation Efficiency
 
-Screen reader users can jump directly to specific page regions using landmark elements. This saves time. Also, most screen readers announce the region type and name (if provided) when navigating to elements within that region, which provides additional context.
+People who use screen readers can jump directly to specific page regions using landmark elements. This saves time. Also, most screen readers announce the region type and name (if provided) when navigating to elements within that region, which provides additional context.
 
 ```html
 <!-- Without landmarks -->
@@ -34,7 +34,7 @@ Screen reader users can jump directly to specific page regions using landmark el
 <footer>...</footer>
 ```
 
-The second example allows screen reader users to press a single key to jump between major page sections. For example, with NVDA, press D key to jump to the next landmark. With JAWS, it's the R key.
+The second example allows people who use screen readers to press a single key to jump between major page sections. For example, with NVDA, press D key to jump to the next landmark. With JAWS, it's the R key.
 
 ### Improved Context
 
@@ -96,7 +96,7 @@ Apply landmark elements consistently across your site. Users can develop mental 
 
 ### Don't Skip the `<main>` Element
 
-Every page should have exactly one `<main>` element. This is crucial for screen reader users who rely on shortcuts to jump to the main content.
+Every page should have exactly one `<main>` element. This is crucial for people who use screen readers who rely on shortcuts to jump to the main content.
 
 ```html
 <!-- Good practice -->
@@ -167,7 +167,7 @@ The `<section>` and `<article>` elements are not always landmarks. They only bec
 
 ### Missing the Primary `<main>` Element
 
-Some developers forget to include the `<main>` element or include multiple `<main>` elements on a single page. Both practices create confusion for screen reader users.
+Some developers forget to include the `<main>` element or include multiple `<main>` elements on a single page. Both practices create confusion for people who use screen readers.
 
 ## Conclusion
 
